@@ -1,0 +1,2675 @@
+<!DOCTYPE html>
+<html class='v2' dir='ltr' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+<meta content='width=1100' name='viewport'/>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<meta content='blogger' name='generator'/>
+<link href='http://www.kontrol0.com/favicon.ico' rel='icon' type='image/x-icon'/>
+<link href='http://www.kontrol0.com/2014/01/extraer-datos-y-hacer-un-dump-de-las.html' rel='canonical'/>
+<link rel="alternate" type="application/atom+xml" title="Kontrol0 - Atom" href="http://www.kontrol0.com/feeds/posts/default" />
+<link rel="alternate" type="application/rss+xml" title="Kontrol0 - RSS" href="http://www.kontrol0.com/feeds/posts/default?alt=rss" />
+<link rel="service.post" type="application/atom+xml" title="Kontrol0 - Atom" href="https://www.blogger.com/feeds/6182020288782773720/posts/default" />
+
+<link rel="alternate" type="application/atom+xml" title="Kontrol0 - Atom" href="http://www.kontrol0.com/feeds/6894811267562369861/comments/default" />
+<!--[if IE]><script type="text/javascript" src="https://www.blogger.com/static/v1/jsbin/3382512426-ieretrofit.js"></script>
+<![endif]-->
+<link href='http://2.bp.blogspot.com/-UhfKoZhr9oc/Ut1v6DBAKFI/AAAAAAAAAgM/tbD3RONAZxw/s1600/mifare_1k_UID_Fig_2.jpg' rel='image_src'/>
+<meta content='Extraer datos y hacer un Dump de las tarjetas RFID Mifare Classic con ACR122U y nfc-mfclassic+nfc-mfclassic' name='description'/>
+<meta content='http://www.kontrol0.com/2014/01/extraer-datos-y-hacer-un-dump-de-las.html' property='og:url'/>
+<meta content='Extraer datos y hacer un Dump de las tarjetas RFID Mifare Classic con ACR122U y nfc-mfclassic+nfc-mfclassic' property='og:title'/>
+<meta content='Este tipo de tarjetas utilizadas normalmente en Estaciones de esquí, Aeropuertos, empresas privadas, transportes públicos, etc, utilizan una...' property='og:description'/>
+<meta content='http://2.bp.blogspot.com/-UhfKoZhr9oc/Ut1v6DBAKFI/AAAAAAAAAgM/tbD3RONAZxw/w1200-h630-p-nu/mifare_1k_UID_Fig_2.jpg' property='og:image'/>
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<title>Kontrol0: Extraer datos y hacer un Dump de las tarjetas RFID Mifare Classic con ACR122U y nfc-mfclassic+nfc-mfclassic</title>
+<link type='text/css' rel='stylesheet' href='https://www.blogger.com/static/v1/widgets/897134159-css_bundle_v2.css' />
+<link type='text/css' rel='stylesheet' href='https://www.blogger.com/dyn-css/authorization.css?targetBlogID=6182020288782773720&zx=622eaddd-4afa-4d6f-a95d-3f6edda590df' />
+<style id='page-skin-1' type='text/css'><!--
+/*
+-----------------------------------------------
+Blogger Template Style
+Name:     Simple
+Designer: Josh Peterson
+URL:      www.noaesthetic.com
+----------------------------------------------- */
+/* Variable definitions
+====================
+<Variable name="keycolor" description="Main Color" type="color" default="#66bbdd"/>
+<Group description="Page Text" selector="body">
+<Variable name="body.font" description="Font" type="font"
+default="normal normal 12px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+<Variable name="body.text.color" description="Text Color" type="color" default="#222222"/>
+</Group>
+<Group description="Backgrounds" selector=".body-fauxcolumns-outer">
+<Variable name="body.background.color" description="Outer Background" type="color" default="#66bbdd"/>
+<Variable name="content.background.color" description="Main Background" type="color" default="#ffffff"/>
+<Variable name="header.background.color" description="Header Background" type="color" default="transparent"/>
+</Group>
+<Group description="Links" selector=".main-outer">
+<Variable name="link.color" description="Link Color" type="color" default="#2288bb"/>
+<Variable name="link.visited.color" description="Visited Color" type="color" default="#888888"/>
+<Variable name="link.hover.color" description="Hover Color" type="color" default="#33aaff"/>
+</Group>
+<Group description="Blog Title" selector=".header h1">
+<Variable name="header.font" description="Font" type="font"
+default="normal normal 60px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+<Variable name="header.text.color" description="Title Color" type="color" default="#3399bb" />
+</Group>
+<Group description="Blog Description" selector=".header .description">
+<Variable name="description.text.color" description="Description Color" type="color"
+default="#777777" />
+</Group>
+<Group description="Tabs Text" selector=".tabs-inner .widget li a">
+<Variable name="tabs.font" description="Font" type="font"
+default="normal normal 14px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+<Variable name="tabs.text.color" description="Text Color" type="color" default="#999999"/>
+<Variable name="tabs.selected.text.color" description="Selected Color" type="color" default="#000000"/>
+</Group>
+<Group description="Tabs Background" selector=".tabs-outer .PageList">
+<Variable name="tabs.background.color" description="Background Color" type="color" default="#f5f5f5"/>
+<Variable name="tabs.selected.background.color" description="Selected Color" type="color" default="#eeeeee"/>
+</Group>
+<Group description="Post Title" selector="h3.post-title, .comments h4">
+<Variable name="post.title.font" description="Font" type="font"
+default="normal normal 22px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+</Group>
+<Group description="Date Header" selector=".date-header">
+<Variable name="date.header.color" description="Text Color" type="color"
+default="#222222"/>
+<Variable name="date.header.background.color" description="Background Color" type="color"
+default="transparent"/>
+</Group>
+<Group description="Post Footer" selector=".post-footer">
+<Variable name="post.footer.text.color" description="Text Color" type="color" default="#666666"/>
+<Variable name="post.footer.background.color" description="Background Color" type="color"
+default="#f9f9f9"/>
+<Variable name="post.footer.border.color" description="Shadow Color" type="color" default="#eeeeee"/>
+</Group>
+<Group description="Gadgets" selector="h2">
+<Variable name="widget.title.font" description="Title Font" type="font"
+default="normal bold 11px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+<Variable name="widget.title.text.color" description="Title Color" type="color" default="#000000"/>
+<Variable name="widget.alternate.text.color" description="Alternate Color" type="color" default="#999999"/>
+</Group>
+<Group description="Images" selector=".main-inner">
+<Variable name="image.background.color" description="Background Color" type="color" default="#ffffff"/>
+<Variable name="image.border.color" description="Border Color" type="color" default="#eeeeee"/>
+<Variable name="image.text.color" description="Caption Text Color" type="color" default="#222222"/>
+</Group>
+<Group description="Accents" selector=".content-inner">
+<Variable name="body.rule.color" description="Separator Line Color" type="color" default="#eeeeee"/>
+<Variable name="tabs.border.color" description="Tabs Border Color" type="color" default="#dddddd"/>
+</Group>
+<Variable name="body.background" description="Body Background" type="background"
+color="#f2f2f2" default="$(color) none repeat scroll top left"/>
+<Variable name="body.background.override" description="Body Background Override" type="string" default=""/>
+<Variable name="body.background.gradient.cap" description="Body Gradient Cap" type="url"
+default="url(//www.blogblog.com/1kt/simple/gradients_light.png)"/>
+<Variable name="body.background.gradient.tile" description="Body Gradient Tile" type="url"
+default="url(//www.blogblog.com/1kt/simple/body_gradient_tile_light.png)"/>
+<Variable name="content.background.color.selector" description="Content Background Color Selector" type="string" default=".content-inner"/>
+<Variable name="content.padding" description="Content Padding" type="length" default="10px"/>
+<Variable name="content.padding.horizontal" description="Content Horizontal Padding" type="length" default="0"/>
+<Variable name="content.shadow.spread" description="Content Shadow Spread" type="length" default="40px"/>
+<Variable name="content.shadow.spread.webkit" description="Content Shadow Spread (WebKit)" type="length" default="5px"/>
+<Variable name="content.shadow.spread.ie" description="Content Shadow Spread (IE)" type="length" default="10px"/>
+<Variable name="main.border.width" description="Main Border Width" type="length" default="0"/>
+<Variable name="header.background.gradient" description="Header Gradient" type="url" default="none"/>
+<Variable name="header.shadow.offset.left" description="Header Shadow Offset Left" type="length" default="-1px"/>
+<Variable name="header.shadow.offset.top" description="Header Shadow Offset Top" type="length" default="-1px"/>
+<Variable name="header.shadow.spread" description="Header Shadow Spread" type="length" default="1px"/>
+<Variable name="header.padding" description="Header Padding" type="length" default="30px"/>
+<Variable name="header.border.size" description="Header Border Size" type="length" default="1px"/>
+<Variable name="header.bottom.border.size" description="Header Bottom Border Size" type="length" default="0"/>
+<Variable name="header.border.horizontalsize" description="Header Horizontal Border Size" type="length" default="0"/>
+<Variable name="description.text.size" description="Description Text Size" type="string" default="140%"/>
+<Variable name="tabs.margin.top" description="Tabs Margin Top" type="length" default="0" />
+<Variable name="tabs.margin.side" description="Tabs Side Margin" type="length" default="30px" />
+<Variable name="tabs.background.gradient" description="Tabs Background Gradient" type="url"
+default="url(//www.blogblog.com/1kt/simple/gradients_light.png)"/>
+<Variable name="tabs.border.width" description="Tabs Border Width" type="length" default="1px"/>
+<Variable name="tabs.bevel.border.width" description="Tabs Bevel Border Width" type="length" default="1px"/>
+<Variable name="date.header.padding" description="Date Header Padding" type="string" default="inherit"/>
+<Variable name="date.header.letterspacing" description="Date Header Letter Spacing" type="string" default="inherit"/>
+<Variable name="date.header.margin" description="Date Header Margin" type="string" default="inherit"/>
+<Variable name="post.margin.bottom" description="Post Bottom Margin" type="length" default="25px"/>
+<Variable name="image.border.small.size" description="Image Border Small Size" type="length" default="2px"/>
+<Variable name="image.border.large.size" description="Image Border Large Size" type="length" default="5px"/>
+<Variable name="page.width.selector" description="Page Width Selector" type="string" default=".region-inner"/>
+<Variable name="page.width" description="Page Width" type="string" default="auto"/>
+<Variable name="main.section.margin" description="Main Section Margin" type="length" default="15px"/>
+<Variable name="main.padding" description="Main Padding" type="length" default="15px"/>
+<Variable name="main.padding.top" description="Main Padding Top" type="length" default="30px"/>
+<Variable name="main.padding.bottom" description="Main Padding Bottom" type="length" default="30px"/>
+<Variable name="paging.background"
+color="#ffffff"
+description="Background of blog paging area" type="background"
+default="transparent none no-repeat scroll top center"/>
+<Variable name="footer.bevel" description="Bevel border length of footer" type="length" default="0"/>
+<Variable name="mobile.background.overlay" description="Mobile Background Overlay" type="string"
+default="transparent none repeat scroll top left"/>
+<Variable name="mobile.background.size" description="Mobile Background Size" type="string" default="auto"/>
+<Variable name="mobile.button.color" description="Mobile Button Color" type="color" default="#ffffff" />
+<Variable name="startSide" description="Side where text starts in blog language" type="automatic" default="left"/>
+<Variable name="endSide" description="Side where text ends in blog language" type="automatic" default="right"/>
+*/
+/* Content
+----------------------------------------------- */
+body {
+font: normal normal 12px 'Trebuchet MS', Trebuchet, sans-serif;
+color: #222222;
+background: #f2f2f2 none no-repeat scroll center center;
+padding: 0 0 0 0;
+background-attachment: scroll;
+}
+html body .content-outer {
+min-width: 0;
+max-width: 100%;
+width: 100%;
+}
+a:link {
+text-decoration:none;
+color: #249fa3;
+}
+a:visited {
+text-decoration:none;
+color: #7c93a1;
+}
+a:hover {
+text-decoration:underline;
+color: #5dc2c0;
+}
+.body-fauxcolumn-outer .fauxcolumn-inner {
+background: transparent none repeat scroll top left;
+_background-image: none;
+}
+.body-fauxcolumn-outer .cap-top {
+position: absolute;
+z-index: 1;
+height: 400px;
+width: 100%;
+background: #f2f2f2 none no-repeat scroll center center;
+background-attachment: scroll;
+}
+.body-fauxcolumn-outer .cap-top .cap-left {
+width: 100%;
+background: transparent none repeat-x scroll top left;
+_background-image: none;
+}
+.content-outer {
+-moz-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+-goog-ms-box-shadow: 0 0 0 #333333;
+box-shadow: 0 0 0 rgba(0, 0, 0, .15);
+margin-bottom: 1px;
+}
+.content-inner {
+padding: 0 0;
+}
+.main-outer, .footer-outer {
+background-color: #ffffff;
+}
+/* Header
+----------------------------------------------- */
+.header-outer {
+background: transparent none repeat-x scroll 0 -400px;
+_background-image: none;
+}
+.Header h1 {
+font: normal normal 70px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+color: #249fa3;
+text-shadow: 0 0 0 rgba(0, 0, 0, .2);
+}
+.Header h1 a {
+color: #249fa3;
+}
+.Header .description {
+font-size: 200%;
+color: #444444;
+}
+.header-inner .Header .titlewrapper {
+padding: 22px 30px;
+}
+.header-inner .Header .descriptionwrapper {
+padding: 0 30px;
+}
+/* Tabs
+----------------------------------------------- */
+.tabs-inner .section:first-child {
+border-top: 0 solid #dddddd;
+}
+.tabs-inner .section:first-child ul {
+margin-top: -0;
+border-top: 0 solid #dddddd;
+border-left: 0 solid #dddddd;
+border-right: 0 solid #dddddd;
+}
+.tabs-inner .widget ul {
+background: transparent none repeat-x scroll 0 -800px;
+_background-image: none;
+border-bottom: 0 solid #dddddd;
+margin-top: 0;
+margin-left: -0;
+margin-right: -0;
+}
+.tabs-inner .widget li a {
+display: inline-block;
+padding: .6em 1em;
+font: normal normal 14px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+color: #00818b;
+border-left: 0 solid #ffffff;
+border-right: 0 solid #dddddd;
+}
+.tabs-inner .widget li:first-child a {
+border-left: none;
+}
+.tabs-inner .widget li.selected a, .tabs-inner .widget li a:hover {
+color: #444444;
+background-color: transparent;
+text-decoration: none;
+}
+/* Columns
+----------------------------------------------- */
+.main-outer {
+border-top: 1px solid #dddddd;
+}
+.fauxcolumn-left-outer .fauxcolumn-inner {
+border-right: 1px solid #dddddd;
+}
+.fauxcolumn-right-outer .fauxcolumn-inner {
+border-left: 1px solid #dddddd;
+}
+/* Headings
+----------------------------------------------- */
+h2 {
+margin: 0 0 1em 0;
+font: normal bold 11px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+color: #000000;
+}
+/* Widgets
+----------------------------------------------- */
+.widget .zippy {
+color: #999999;
+text-shadow: 2px 2px 1px rgba(0, 0, 0, .1);
+}
+.widget .popular-posts ul {
+list-style: none;
+}
+/* Posts
+----------------------------------------------- */
+.date-header span {
+background-color: transparent;
+color: #222222;
+padding: inherit;
+letter-spacing: inherit;
+margin: inherit;
+}
+.main-inner {
+padding-top: 30px;
+padding-bottom: 30px;
+}
+.main-inner .column-center-inner {
+padding: 0 15px;
+}
+.main-inner .column-center-inner .section {
+margin: 0 15px;
+}
+.post {
+margin: 0 0 25px 0;
+}
+h3.post-title, .comments h4 {
+font: normal normal 22px Arial, Tahoma, Helvetica, FreeSans, sans-serif;
+margin: .75em 0 0;
+}
+.post-body {
+font-size: 110%;
+line-height: 1.4;
+position: relative;
+}
+.post-body img, .post-body .tr-caption-container, .Profile img, .Image img,
+.BlogList .item-thumbnail img {
+padding: 2px;
+background: #ffffff;
+border: 1px solid #eeeeee;
+-moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+-webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+}
+.post-body img, .post-body .tr-caption-container {
+padding: 5px;
+}
+.post-body .tr-caption-container {
+color: #222222;
+}
+.post-body .tr-caption-container img {
+padding: 0;
+background: transparent;
+border: none;
+-moz-box-shadow: 0 0 0 rgba(0, 0, 0, .1);
+-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .1);
+box-shadow: 0 0 0 rgba(0, 0, 0, .1);
+}
+.post-header {
+margin: 0 0 1.5em;
+line-height: 1.6;
+font-size: 90%;
+}
+.post-footer {
+margin: 20px -2px 0;
+padding: 5px 10px;
+color: #666666;
+background-color: #f9f9f9;
+border-bottom: 1px solid #eeeeee;
+line-height: 1.6;
+font-size: 90%;
+}
+#comments .comment-author {
+padding-top: 1.5em;
+border-top: 1px solid #dddddd;
+background-position: 0 1.5em;
+}
+#comments .comment-author:first-child {
+padding-top: 0;
+border-top: none;
+}
+.avatar-image-container {
+margin: .2em 0 0;
+}
+#comments .avatar-image-container img {
+border: 1px solid #eeeeee;
+}
+/* Comments
+----------------------------------------------- */
+.comments .comments-content .icon.blog-author {
+background-repeat: no-repeat;
+background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEgAACxIB0t1+/AAAAAd0SU1FB9sLFwMeCjjhcOMAAAD+SURBVDjLtZSvTgNBEIe/WRRnm3U8RC1neQdsm1zSBIU9VVF1FkUguQQsD9ITmD7ECZIJSE4OZo9stoVjC/zc7ky+zH9hXwVwDpTAWWLrgS3QAe8AZgaAJI5zYAmc8r0G4AHYHQKVwII8PZrZFsBFkeRCABYiMh9BRUhnSkPTNCtVXYXURi1FpBDgArj8QU1eVXUzfnjv7yP7kwu1mYrkWlU33vs1QNu2qU8pwN0UpKoqokjWwCztrMuBhEhmh8bD5UDqur75asbcX0BGUB9/HAMB+r32hznJgXy2v0sGLBcyAJ1EK3LFcbo1s91JeLwAbwGYu7TP/3ZGfnXYPgAVNngtqatUNgAAAABJRU5ErkJggg==);
+}
+.comments .comments-content .loadmore a {
+border-top: 1px solid #999999;
+border-bottom: 1px solid #999999;
+}
+.comments .comment-thread.inline-thread {
+background-color: #f9f9f9;
+}
+.comments .continue {
+border-top: 2px solid #999999;
+}
+/* Accents
+---------------------------------------------- */
+.section-columns td.columns-cell {
+border-left: 1px solid #dddddd;
+}
+.blog-pager {
+background: transparent none no-repeat scroll top center;
+}
+.blog-pager-older-link, .home-link,
+.blog-pager-newer-link {
+background-color: #ffffff;
+padding: 5px;
+}
+.footer-outer {
+border-top: 0 dashed #bbbbbb;
+}
+/* Mobile
+----------------------------------------------- */
+body.mobile  {
+background-size: auto;
+}
+.mobile .body-fauxcolumn-outer {
+background: transparent none repeat scroll top left;
+}
+.mobile .body-fauxcolumn-outer .cap-top {
+background-size: 100% auto;
+}
+.mobile .content-outer {
+-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+}
+body.mobile .AdSense {
+margin: 0 -0;
+}
+.mobile .tabs-inner .widget ul {
+margin-left: 0;
+margin-right: 0;
+}
+.mobile .post {
+margin: 0;
+}
+.mobile .main-inner .column-center-inner .section {
+margin: 0;
+}
+.mobile .date-header span {
+padding: 0.1em 10px;
+margin: 0 -10px;
+}
+.mobile h3.post-title {
+margin: 0;
+}
+.mobile .blog-pager {
+background: transparent none no-repeat scroll top center;
+}
+.mobile .footer-outer {
+border-top: none;
+}
+.mobile .main-inner, .mobile .footer-inner {
+background-color: #ffffff;
+}
+.mobile-index-contents {
+color: #222222;
+}
+.mobile-link-button {
+background-color: #249fa3;
+}
+.mobile-link-button a:link, .mobile-link-button a:visited {
+color: #ffffff;
+}
+.mobile .tabs-inner .section:first-child {
+border-top: none;
+}
+.mobile .tabs-inner .PageList .widget-content {
+background-color: transparent;
+color: #444444;
+border-top: 0 solid #dddddd;
+border-bottom: 0 solid #dddddd;
+}
+.mobile .tabs-inner .PageList .widget-content .pagelist-arrow {
+border-left: 1px solid #dddddd;
+}
+
+--></style>
+<style id='template-skin-1' type='text/css'><!--
+body {
+min-width: 1200px;
+}
+.content-outer, .content-fauxcolumn-outer, .region-inner {
+min-width: 1200px;
+max-width: 1200px;
+_width: 1200px;
+}
+.main-inner .columns {
+padding-left: 270px;
+padding-right: 270px;
+}
+.main-inner .fauxcolumn-center-outer {
+left: 270px;
+right: 270px;
+/* IE6 does not respect left and right together */
+_width: expression(this.parentNode.offsetWidth -
+parseInt("270px") -
+parseInt("270px") + 'px');
+}
+.main-inner .fauxcolumn-left-outer {
+width: 270px;
+}
+.main-inner .fauxcolumn-right-outer {
+width: 270px;
+}
+.main-inner .column-left-outer {
+width: 270px;
+right: 100%;
+margin-left: -270px;
+}
+.main-inner .column-right-outer {
+width: 270px;
+margin-right: -270px;
+}
+#layout {
+min-width: 0;
+}
+#layout .content-outer {
+min-width: 0;
+width: 800px;
+}
+#layout .region-inner {
+min-width: 0;
+width: auto;
+}
+--></style>
+<script type='text/javascript'>
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-47587303-1']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = (document.location.protocol == 'https:' ?
+                      'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+<script type="text/javascript">function a(){var b=window.location.href,c=b.split("?");switch(c.length){case 1:return b+"?m=1";case 2:return 0<=c[1].search("(^|&)m=")?null:b+"&m=1";default:return null}}var d=navigator.userAgent;if(-1!=d.indexOf("Mobile")&&-1!=d.indexOf("WebKit")&&-1==d.indexOf("iPad")||-1!=d.indexOf("Opera Mini")||-1!=d.indexOf("IEMobile")){var e=a();e&&window.location.replace(e)};
+</script></head>
+<style type='text/css'>
+#navbar-iframe {display: none !important; }
+body .navbar {height: 0 !important}
+</style>
+<body class='loading'>
+<div class='navbar section' id='navbar'><div class='widget Navbar' data-version='1' id='Navbar1'><script type="text/javascript">
+    function setAttributeOnload(object, attribute, val) {
+      if(window.addEventListener) {
+        window.addEventListener('load',
+          function(){ object[attribute] = val; }, false);
+      } else {
+        window.attachEvent('onload', function(){ object[attribute] = val; });
+      }
+    }
+  </script>
+<div id="navbar-iframe-container"></div>
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+<script type="text/javascript">
+      gapi.load("gapi.iframes:gapi.iframes.style.bubble", function() {
+        if (gapi.iframes && gapi.iframes.getContext) {
+          gapi.iframes.getContext().openChild({
+              url: 'https://www.blogger.com/navbar.g?targetBlogID\x3d6182020288782773720\x26blogName\x3dKontrol0\x26publishMode\x3dPUBLISH_MODE_HOSTED\x26navbarType\x3dLIGHT\x26layoutType\x3dLAYOUTS\x26searchRoot\x3dhttp://www.kontrol0.com/search\x26blogLocale\x3des\x26v\x3d2\x26homepageUrl\x3dhttp://www.kontrol0.com/\x26targetPostID\x3d6894811267562369861\x26blogPostOrPageUrl\x3dhttp://www.kontrol0.com/2014/01/extraer-datos-y-hacer-un-dump-de-las.html\x26vt\x3d-1310236174876141774',
+              where: document.getElementById("navbar-iframe-container"),
+              id: "navbar-iframe"
+          });
+        }
+      });
+    </script><script type="text/javascript">
+(function() {
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = '//pagead2.googlesyndication.com/pagead/js/google_top_exp.js';
+var head = document.getElementsByTagName('head')[0];
+if (head) {
+head.appendChild(script);
+}})();
+</script>
+</div></div>
+<div class='body-fauxcolumns'>
+<div class='fauxcolumn-outer body-fauxcolumn-outer'>
+<div class='cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left'>
+<div class='fauxborder-right'></div>
+<div class='fauxcolumn-inner'>
+</div>
+</div>
+<div class='cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+</div>
+<div class='content'>
+<div class='content-fauxcolumns'>
+<div class='fauxcolumn-outer content-fauxcolumn-outer'>
+<div class='cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left'>
+<div class='fauxborder-right'></div>
+<div class='fauxcolumn-inner'>
+</div>
+</div>
+<div class='cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+</div>
+<div class='content-outer'>
+<div class='content-cap-top cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left content-fauxborder-left'>
+<div class='fauxborder-right content-fauxborder-right'></div>
+<div class='content-inner'>
+<header>
+<div class='header-outer'>
+<div class='header-cap-top cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left header-fauxborder-left'>
+<div class='fauxborder-right header-fauxborder-right'></div>
+<div class='region-inner header-inner'>
+<div class='header section' id='header'><div class='widget Header' data-version='1' id='Header1'>
+<div id='header-inner'>
+<a href='http://www.kontrol0.com/' style='display: block'>
+<img alt='Kontrol0' height='90px; ' id='Header1_headerimg' src='http://2.bp.blogspot.com/-INd4w9hmqOk/UhTCiYCS8KI/AAAAAAAAAMY/6mvF2XGHuFo/s1600/kontrol0.png' style='display: block' width='824px; '/>
+</a>
+</div>
+</div></div>
+</div>
+</div>
+<div class='header-cap-bottom cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+</header>
+<div class='tabs-outer'>
+<div class='tabs-cap-top cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left tabs-fauxborder-left'>
+<div class='fauxborder-right tabs-fauxborder-right'></div>
+<div class='region-inner tabs-inner'>
+<div class='tabs section' id='crosscol'><div class='widget PageList' data-version='1' id='PageList1'>
+<h2>Pages</h2>
+<div class='widget-content'>
+<ul>
+<li><a href='http://www.kontrol0.com/'>Página principal</a></li>
+<li><a href='http://k0sasp.kontrol0.com'>K0SASP</a></li>
+</ul>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=6182020288782773720&widgetType=PageList&widgetId=PageList1&action=editWidget&sectionId=crosscol' onclick='return _WidgetManager._PopupConfig(document.getElementById("PageList1"));' target='configPageList1' title='Editar'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div></div>
+<div class='tabs no-items section' id='crosscol-overflow'></div>
+</div>
+</div>
+<div class='tabs-cap-bottom cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+<div class='main-outer'>
+<div class='main-cap-top cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left main-fauxborder-left'>
+<div class='fauxborder-right main-fauxborder-right'></div>
+<div class='region-inner main-inner'>
+<div class='columns fauxcolumns'>
+<div class='fauxcolumn-outer fauxcolumn-center-outer'>
+<div class='cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left'>
+<div class='fauxborder-right'></div>
+<div class='fauxcolumn-inner'>
+</div>
+</div>
+<div class='cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+<div class='fauxcolumn-outer fauxcolumn-left-outer'>
+<div class='cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left'>
+<div class='fauxborder-right'></div>
+<div class='fauxcolumn-inner'>
+</div>
+</div>
+<div class='cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+<div class='fauxcolumn-outer fauxcolumn-right-outer'>
+<div class='cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left'>
+<div class='fauxborder-right'></div>
+<div class='fauxcolumn-inner'>
+</div>
+</div>
+<div class='cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+<!-- corrects IE6 width calculation -->
+<div class='columns-inner'>
+<div class='column-center-outer'>
+<div class='column-center-inner'>
+<div class='main section' id='main'><div class='widget Blog' data-version='1' id='Blog1'>
+<div class='blog-posts hfeed'>
+
+          <div class="date-outer">
+        
+<h2 class='date-header'><span>lunes, 20 de enero de 2014</span></h2>
+
+          <div class="date-posts">
+        
+<div class='post-outer'>
+<div class='post hentry' itemprop='blogPost' itemscope='itemscope' itemtype='http://schema.org/BlogPosting'>
+<meta content='http://2.bp.blogspot.com/-UhfKoZhr9oc/Ut1v6DBAKFI/AAAAAAAAAgM/tbD3RONAZxw/s1600/mifare_1k_UID_Fig_2.jpg' itemprop='image_url'/>
+<meta content='6182020288782773720' itemprop='blogId'/>
+<meta content='6894811267562369861' itemprop='postId'/>
+<a name='6894811267562369861'></a>
+<h3 class='post-title entry-title' itemprop='name'>
+Extraer datos y hacer un Dump de las tarjetas RFID Mifare Classic con ACR122U y nfc-mfclassic+nfc-mfclassic
+</h3>
+<div class='post-header'>
+<div class='post-header-line-1'><span class='post-author vcard'>
+Publicado por
+<span class='fn' itemprop='author' itemscope='itemscope' itemtype='http://schema.org/Person'>
+<meta content='https://plus.google.com/112358081958090219573' itemprop='url'/>
+<a class='g-profile' href='https://plus.google.com/112358081958090219573' rel='author' title='author profile'>
+<span itemprop='name'>Ismael González D.</span>
+</a>
+</span>
+</span>
+</div>
+</div>
+<div class='post-body entry-content' id='post-body-6894811267562369861' itemprop='articleBody'>
+Este tipo de tarjetas utilizadas normalmente en Estaciones de esquí, Aeropuertos, empresas privadas, transportes públicos, etc, utilizan una tecnología análoga a la de las Wifis, pero a corta distancia y utilizando un cifrado de la conexión distinto. En concreto el cifrado de las tarjetas Mifare Classic 1k y 4k utilizan un <a href="http://en.wikipedia.org/wiki/Crypto-1" target="_blank">algoritmo CRYPTO1</a>, el cual se puede romper fácilmente. En la web de <a href="http://www.securityartwork.es/2010/01/29/hacking-rfid-rompiendo-la-seguridad-de-mifare-i/" target="_blank">Security art work</a> podmeos encontrar cuatro post detallando exactamente como trabaja la autenticación de las tarjetas a la hora de pasarlas por el lector.<br />
+<br />
+Un resumen es que las tarjetas Mifare Classic guardan cierta información, entre las que se encuentra las claves de cifrado y el UID o identificación del usuario. El funcionanmiento es el siguiente; tarjeta es pasada por un lector de radio frecuencia a una distancia máxima de entre unos 5 y 10cm, en ese momento el lector envía la señal para autenticarse, y la tarjeta le responde con la clave de cifrado, la auntenticación es mutua. Cuando se ha producido la autenticación, el lector manda el UID al la Base de datos donde se almacena toda la información, y el servidor la devuelve mostrando en pantalla los datos, que pueden ser, el saldo, una autorización de acceso, etc.<br />
+<br />
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody>
+<tr><td style="text-align: center;"><a href="http://2.bp.blogspot.com/-UhfKoZhr9oc/Ut1v6DBAKFI/AAAAAAAAAgM/tbD3RONAZxw/s1600/mifare_1k_UID_Fig_2.jpg" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" src="http://2.bp.blogspot.com/-UhfKoZhr9oc/Ut1v6DBAKFI/AAAAAAAAAgM/tbD3RONAZxw/s1600/mifare_1k_UID_Fig_2.jpg" height="206" width="320" /></a></td></tr>
+<tr><td class="tr-caption" style="text-align: center;">Imagen 1: Proceso de Autenticación Mifare Classic</td></tr>
+</tbody></table>
+Sabiendo esto es normal que lo primero en que se piense sea en clonar las tarjetas para obtener acceso gratis al transporte, o para colarse en alguna empresa evidenciando que ésta es vulnerable a accesos por parte de personal externo sin autorización.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<object class="BLOGGER-youtube-video" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" data-thumbnail-src="https://ytimg.googleusercontent.com/vi/NW3RGbQTLhE/0.jpg" height="266" width="320"><param name="movie" value="https://youtube.googleapis.com/v/NW3RGbQTLhE&source=uds" /><param name="bgcolor" value="#FFFFFF" /><param name="allowFullScreen" value="true" /><embed width="320" height="266"  src="https://youtube.googleapis.com/v/NW3RGbQTLhE&source=uds" type="application/x-shockwave-flash" allowfullscreen="true"></embed></object></div>
+<br />
+El caso es que para poder clonar las tarjetas, de momento, no he encontrado nada en claro. Si que es cierto que existe gran información, pero está algo desordenada, en este <a href="http://foro.elhacker.net/hacking_avanzado/pruebas_y_chanchullos_con_rfid-t263647.0.html" target="_blank">Hilo del foro de elhacker.net</a> se habla bastante de ello, y leyéndolo desde el principio uno se puede hacer a la idea de por donde van los tiros.<br />
+Para esta prueba de concepto nos hemos basado en el artículo <a href="http://www.backtrack-linux.org/wiki/index.php/RFID_Cooking_with_Mifare_Classic" target="_blank">RFID Cooking with Mifare Classic</a> que podemos encontrar en la wiki de la página de <a href="http://backtrack-linux.org/">Backtrack-linux.org</a>. Lo que vamos a hacer va ser utilizar un lector grabador <a href="http://www.acs.com.hk/en/products/3/acr122u-usb-nfc-reader/" target="_blank">ACR122U</a> con el que haremos un volcado de los datos para después modificarlos y hacer los cambios en la tarjeta. Podemos <a href="https://www.blogger.com/null" target="_blank">comprarlo en </a><a href="https://www.blogger.com/null" target="_blank">ebay</a><a href="https://www.blogger.com/null" target="_blank"> por unos 50$.</a><br />
+<br />
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody>
+<tr><td style="text-align: center;"><a href="http://3.bp.blogspot.com/-pw_BCtZcfwE/Ut116tE7U6I/AAAAAAAAAgc/4h17ZEI_yAk/s1600/starter_kit_1_grande.jpg%3fv=1322974477.jpg" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" src="http://3.bp.blogspot.com/-pw_BCtZcfwE/Ut116tE7U6I/AAAAAAAAAgc/4h17ZEI_yAk/s1600/starter_kit_1_grande.jpg%3fv=1322974477.jpg" height="320" width="320" /></a></td></tr>
+<tr><td class="tr-caption" style="text-align: center;">Imagen 2: Lector Grabador para tarjetas Mifare Classic 1k y 4k</td></tr>
+</tbody></table>
+Comentar que existen driver para Linux, Windows y Mac OS X, así que no tenemos porqué preocuparnos en cuanto a compatibilidad.<br />
+Empezaremos utilizando el comando <b>nfc-list</b> para poner el dispositivo a la escucha y ver la información de las tarjetas que pasemos por el lector.<br />
+<br />
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody>
+<tr><td style="text-align: center;"><a href="http://3.bp.blogspot.com/-H6hXxXMIlvs/Ut19WUSfUxI/AAAAAAAAAgs/NA9cBkqGyuA/s1600/captura.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" src="http://3.bp.blogspot.com/-H6hXxXMIlvs/Ut19WUSfUxI/AAAAAAAAAgs/NA9cBkqGyuA/s1600/captura.png" /></a></td></tr>
+<tr><td class="tr-caption" style="text-align: center;">Imagen 3: Lectura de la tarjeta</td></tr>
+</tbody></table>
+El siguiente comando que vamos ha utilizar nos permitirá romper la seguridad de cifrado de la tarjeta y hacer un volcado de los datos que contenga. Esto es el UID.<br />
+Para que este proceso se lleve acabo será necesario mantener la tarjeta encima del lector, hasta que finalmente obtengamos los datos.<br />
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody>
+<tr><td style="text-align: center;"><a href="http://4.bp.blogspot.com/-DD18U0PjoXU/Ut2AFHv5ogI/AAAAAAAAAg4/y59QhGwN0Rc/s1600/captura2.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" src="http://4.bp.blogspot.com/-DD18U0PjoXU/Ut2AFHv5ogI/AAAAAAAAAg4/y59QhGwN0Rc/s1600/captura2.png" height="346" width="400" /></a></td></tr>
+<tr><td class="tr-caption" style="text-align: center;">Imagen 4: Volcado o Dump de los datos de la tarjeta</td></tr>
+</tbody></table>
+Los parámetros de este comando especifican lo siguiente:<br />
+<br />
+<b>-P </b>Número de intentos por sector (por defecto 20)<br />
+<b>-0 </b>Es el nombre y ruta del archivo donde se guardará la información(este parámetro es obligatorio.<br />
+<br />
+El programa empezará a realizar intentos de autenticación por sector, cuando termine la autenticación volcará los datos en el archivo que le especificamos.<br />
+<br />
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody>
+<tr><td style="text-align: center;"><a href="http://1.bp.blogspot.com/-ggBIzRaoVxo/Ut2TH9UpPLI/AAAAAAAAAhI/Ni7RDTKs8CU/s1600/captura3.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" src="http://1.bp.blogspot.com/-ggBIzRaoVxo/Ut2TH9UpPLI/AAAAAAAAAhI/Ni7RDTKs8CU/s1600/captura3.png" height="346" width="400" /></a></td></tr>
+<tr><td class="tr-caption" style="text-align: center;">Imagen 5: Intento de conexión y autenticación con la tarjeta y volcado de datos</td></tr>
+</tbody></table>
+Para comprobar la información del volcado de datos podemos abrir el archivo con cualquier editor hexadecimal. Y será aquí donde se modificarán todo lo que queramos cambiar.<br />
+<br />
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody>
+<tr><td style="text-align: center;"><a href="http://3.bp.blogspot.com/-bhUdEmfuvJY/Ut2cB_l91KI/AAAAAAAAAhY/0R0pQVnYi-A/s1600/captura+3.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" src="http://3.bp.blogspot.com/-bhUdEmfuvJY/Ut2cB_l91KI/AAAAAAAAAhY/0R0pQVnYi-A/s1600/captura+3.png" height="232" width="400" /></a></td></tr>
+<tr><td class="tr-caption" style="text-align: center;">Imagen 6: Visualizando los datos extraidos con un editor hexadecimal</td></tr>
+</tbody></table>
+Por último grabamos estos datos modificados en la tarjeta a través de <b>nfc-mfclassic</b>. Esto permitirá escribir en la tarjeta el volcado que se hizo anteriormente.<br />
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody>
+<tr><td style="text-align: center;"><a href="http://3.bp.blogspot.com/-I4STYMoC3vA/Ut2dd36n6vI/AAAAAAAAAhk/Ak7MorOWoVc/s1600/captura5.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" src="http://3.bp.blogspot.com/-I4STYMoC3vA/Ut2dd36n6vI/AAAAAAAAAhk/Ak7MorOWoVc/s1600/captura5.png" /></a></td></tr>
+<tr><td class="tr-caption" style="text-align: center;">Imagen 7: Escribiendo datos en mifare classic</td></tr>
+</tbody></table>
+<br />
+Los parámetros de este comando indican tan sólo lo que queremos hacer, si leer(<b>r</b>) o escribir(<b>w</b>), y la clave que utilizaremos key(<b>a</b>) o key(<b>b</b>).<br />
+<br />
+A partir de aquí es cuestión de buscar más información para poder hacer un clonado completo de la tarjeta. Mi intención es arrojar algo de luz a este tema.<br />
+<br />
+<b>Referencias:</b><br />
+<a href="http://foro.elhacker.net/hacking_avanzado/pruebas_y_chanchullos_con_rfid-t263647.0.html">http://foro.elhacker.net/hacking_avanzado/pruebas_y_chanchullos_con_rfid-t263647.0.html</a><br />
+<a href="http://www.securityartwork.es/2010/01/29/hacking-rfid-rompiendo-la-seguridad-de-mifare-i/">http://www.securityartwork.es/2010/01/29/hacking-rfid-rompiendo-la-seguridad-de-mifare-i/</a><br />
+<a href="http://www.securityartwork.es/2010/02/03/hacking-rfid-rompiendo-la-seguridad-de-mifare-ii/" target="_blank">http://www.securityartwork.es/2010/02/03/hacking-rfid-rompiendo-la-seguridad-de-mifare-ii/ </a><br />
+<a href="http://www.securityartwork.es/2010/07/21/hacking-rfid-rompiendo-la-seguridad-de-mifare-iii/">http://www.securityartwork.es/2010/07/21/hacking-rfid-rompiendo-la-seguridad-de-mifare-iii/</a><br />
+<a href="http://www.securityartwork.es/2010/09/15/hacking-rfid-rompiendo-la-seguridad-de-mifare-iv/">http://www.securityartwork.es/2010/09/15/hacking-rfid-rompiendo-la-seguridad-de-mifare-iv/</a><br />
+<a href="http://www.backtrack-linux.org/wiki/index.php/RFID_Cooking_with_Mifare_Classic">http://www.backtrack-linux.org/wiki/index.php/RFID_Cooking_with_Mifare_Classic</a><br />
+<a href="http://www.ru.nl/ds/research/rfid/">http://www.ru.nl/ds/research/rfid/</a><br />
+<a href="http://www.sos.cs.ru.nl/applications/rfid/2008-koning-thesis.pdf">http://www.sos.cs.ru.nl/applications/rfid/2008-koning-thesis.pdf</a><br />
+<a href="http://www.sos.cs.ru.nl/applications/rfid/2008-cardis.pdf">http://www.sos.cs.ru.nl/applications/rfid/2008-cardis.pdf</a><br />
+<a href="http://www.sos.cs.ru.nl/applications/rfid/2008-privacy.pdf">http://www.sos.cs.ru.nl/applications/rfid/2008-privacy.pdf</a><br />
+<a href="http://www.sos.cs.ru.nl/applications/rfid/2008-concept.pdf">http://www.sos.cs.ru.nl/applications/rfid/2008-concept.pdf</a><br />
+<a href="http://www.sos.cs.ru.nl/applications/rfid/2008-esorics.pdf">http://www.sos.cs.ru.nl/applications/rfid/2008-esorics.pdf</a>
+<div style='clear: both;'></div>
+</div>
+<div class='post-footer'>
+<div class='post-footer-line post-footer-line-1'><span class='post-comment-link'>
+</span>
+<span class='post-icons'>
+<span class='item-control blog-admin pid-1891193060'>
+<a href='https://www.blogger.com/post-edit.g?blogID=6182020288782773720&postID=6894811267562369861&from=pencil' title='Editar entrada'>
+<img alt='' class='icon-action' height='18' src='https://resources.blogblog.com/img/icon18_edit_allbkg.gif' width='18'/>
+</a>
+</span>
+</span>
+<div class='post-share-buttons goog-inline-block'>
+<a class='goog-inline-block share-button sb-email' href='https://www.blogger.com/share-post.g?blogID=6182020288782773720&postID=6894811267562369861&target=email' target='_blank' title='Enviar por correo electrónico'><span class='share-button-link-text'>Enviar por correo electrónico</span></a><a class='goog-inline-block share-button sb-blog' href='https://www.blogger.com/share-post.g?blogID=6182020288782773720&postID=6894811267562369861&target=blog' onclick='window.open(this.href, "_blank", "height=270,width=475"); return false;' target='_blank' title='Escribe un blog'><span class='share-button-link-text'>Escribe un blog</span></a><a class='goog-inline-block share-button sb-twitter' href='https://www.blogger.com/share-post.g?blogID=6182020288782773720&postID=6894811267562369861&target=twitter' target='_blank' title='Compartir con Twitter'><span class='share-button-link-text'>Compartir con Twitter</span></a><a class='goog-inline-block share-button sb-facebook' href='https://www.blogger.com/share-post.g?blogID=6182020288782773720&postID=6894811267562369861&target=facebook' onclick='window.open(this.href, "_blank", "height=430,width=640"); return false;' target='_blank' title='Compartir con Facebook'><span class='share-button-link-text'>Compartir con Facebook</span></a><a class='goog-inline-block share-button sb-pinterest' href='https://www.blogger.com/share-post.g?blogID=6182020288782773720&postID=6894811267562369861&target=pinterest' target='_blank' title='Compartir en Pinterest'><span class='share-button-link-text'>Compartir en Pinterest</span></a><div class='goog-inline-block dummy-container'><g:plusone source='blogger:blog:plusone' href='http://www.kontrol0.com/2014/01/extraer-datos-y-hacer-un-dump-de-las.html' size='medium' width='300' annotation='inline'/></div>
+</div>
+<span class='post-backlinks post-comment-link'>
+</span>
+</div>
+<div class='post-footer-line post-footer-line-2'><span class='post-labels'>
+Etiquetas:
+<a href='http://www.kontrol0.com/search/label/Hack' rel='tag'>Hack</a>,
+<a href='http://www.kontrol0.com/search/label/Kali%20Linux' rel='tag'>Kali Linux</a>,
+<a href='http://www.kontrol0.com/search/label/mifare' rel='tag'>mifare</a>,
+<a href='http://www.kontrol0.com/search/label/nfc' rel='tag'>nfc</a>,
+<a href='http://www.kontrol0.com/search/label/RFID' rel='tag'>RFID</a>,
+<a href='http://www.kontrol0.com/search/label/wireless' rel='tag'>wireless</a>
+</span>
+</div>
+<div class='post-footer-line post-footer-line-3'></div>
+</div>
+</div>
+<script src='https://apis.google.com/js/plusone.js' type='text/javascript'></script>
+<div class='cmt_iframe_holder' data-href='http://www.kontrol0.com/2014/01/extraer-datos-y-hacer-un-dump-de-las.html' data-viewtype=''></div>
+</div>
+<div class='inline-ad'>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-0213388943213903";
+google_ad_host = "ca-host-pub-1556223355139109";
+google_ad_host_channel = "L0007";
+/* kontrol0_main_Blog1_300x250_as */
+google_ad_slot = "2027407061";
+google_ad_width = 300;
+google_ad_height = 250;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+        </div></div>
+      
+</div>
+<div class='blog-pager' id='blog-pager'>
+<span id='blog-pager-newer-link'>
+<a class='blog-pager-newer-link' href='http://www.kontrol0.com/2014/01/analisis-forense-binarycookiereader.html' id='Blog1_blog-pager-newer-link' title='Entrada más reciente'>Entrada más reciente</a>
+</span>
+<span id='blog-pager-older-link'>
+<a class='blog-pager-older-link' href='http://www.kontrol0.com/2014/01/skimming-desde-900-monta-tu-propio.html' id='Blog1_blog-pager-older-link' title='Entrada antigua'>Entrada antigua</a>
+</span>
+<a class='home-link' href='http://www.kontrol0.com/'>Página principal</a>
+</div>
+<div class='clear'></div>
+<div class='post-feeds'>
+<div class='feed-links'>
+Suscribirse a:
+<a class='feed-link' href='http://www.kontrol0.com/feeds/6894811267562369861/comments/default' target='_blank' type='application/atom+xml'>Enviar comentarios (Atom)</a>
+</div>
+</div>
+<script type="text/javascript">window.___gcfg = {'lang': 'es'};</script>
+</div></div>
+</div>
+</div>
+<div class='column-left-outer'>
+<div class='column-left-inner'>
+<aside>
+<div class='sidebar section' id='sidebar-left-1'><div class='widget PopularPosts' data-version='1' id='PopularPosts1'>
+<h2>Más populares en esta semana</h2>
+<div class='widget-content popular-posts'>
+<ul>
+<li>
+<div class='item-content'>
+<div class='item-thumbnail'>
+<a href='http://www.kontrol0.com/2014/01/extraer-datos-y-hacer-un-dump-de-las.html' target='_blank'>
+<img alt='' border='0' src='http://2.bp.blogspot.com/-UhfKoZhr9oc/Ut1v6DBAKFI/AAAAAAAAAgM/tbD3RONAZxw/w72-h72-p-nu/mifare_1k_UID_Fig_2.jpg'/>
+</a>
+</div>
+<div class='item-title'><a href='http://www.kontrol0.com/2014/01/extraer-datos-y-hacer-un-dump-de-las.html'>Extraer datos y hacer un Dump de las tarjetas RFID Mifare Classic con ACR122U y nfc-mfclassic+nfc-mfclassic</a></div>
+<div class='item-snippet'>Este tipo de tarjetas utilizadas normalmente en Estaciones de esquí, Aeropuertos, empresas privadas, transportes públicos, etc, utilizan una...</div>
+</div>
+<div style='clear: both;'></div>
+</li>
+<li>
+<div class='item-content'>
+<div class='item-thumbnail'>
+<a href='http://www.kontrol0.com/2013/04/hackear-con-mac-os-x-tambien-es-posible.html' target='_blank'>
+<img alt='' border='0' src='http://3.bp.blogspot.com/-g6ehR7Um5lg/UW76eTBCasI/AAAAAAAAAkw/Z2pqvp2yHFo/w72-h72-p-nu/Utilidad+de+Red.jpg'/>
+</a>
+</div>
+<div class='item-title'><a href='http://www.kontrol0.com/2013/04/hackear-con-mac-os-x-tambien-es-posible.html'>Hackear con MAC OS X también es posible</a></div>
+<div class='item-snippet'>Mucho de nosotros cuando empezamos a indagar en los sistemas de Apple nos llevamos una gran sorpresa al descubrir que la gran mayoría de las...</div>
+</div>
+<div style='clear: both;'></div>
+</li>
+<li>
+<div class='item-content'>
+<div class='item-title'><a href='http://www.kontrol0.com/2016/09/como-aprender-hacking-roberto-garcia-y.html'>Como aprender Hacking - Roberto Garcia y 1GbdeInfo</a></div>
+<div class='item-snippet'>Cuando queremos empezar en el mundo del hacking y la seguridad informática siempre tendemos a hacernos le eterna pregunta de &#191;Cómo puedo emp...</div>
+</div>
+<div style='clear: both;'></div>
+</li>
+<li>
+<div class='item-content'>
+<div class='item-thumbnail'>
+<a href='http://www.kontrol0.com/2013/12/owasp-zap-asi-funciona-su-busqueda.html' target='_blank'>
+<img alt='' border='0' src='http://2.bp.blogspot.com/-AkOEwF8jrlA/UrvWGa-qpjI/AAAAAAAAAbo/wq9KQW5HO0I/w72-h72-p-nu/Captura+de+pantalla+-+261213+-+08:08:53.png'/>
+</a>
+</div>
+<div class='item-title'><a href='http://www.kontrol0.com/2013/12/owasp-zap-asi-funciona-su-busqueda.html'>OWASP ZAP: Así funciona su búsqueda automática de vulnerabilidades</a></div>
+<div class='item-snippet'>En este artículo vamos a explicar como funciona la búsqueda automática de vulnerabilidades en OWASP ZAP, la alternativa a Burpsuite. Aunque ...</div>
+</div>
+<div style='clear: both;'></div>
+</li>
+<li>
+<div class='item-content'>
+<div class='item-title'><a href='http://www.kontrol0.com/2013/10/backbox-iniciacion-al-pentesting-tema-1.html'>Backbox - Iniciación al Pentesting. Tema 1, Tema 2, y parte del Tema 3 (PDF) </a></div>
+<div class='item-snippet'>Ya se ha colgado todo lo que llevamos visto hasta ahora del Curso de Backbox Linux.  Habrá gente que piense que las entradas que se escriben...</div>
+</div>
+<div style='clear: both;'></div>
+</li>
+</ul>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=6182020288782773720&widgetType=PopularPosts&widgetId=PopularPosts1&action=editWidget&sectionId=sidebar-left-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("PopularPosts1"));' target='configPopularPosts1' title='Editar'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div><div class='widget AdSense' data-version='1' id='AdSense1'>
+<div class='widget-content'>
+<script type="text/javascript"><!--
+google_ad_client="pub-0213388943213903";
+google_ad_host="pub-1556223355139109";
+google_ad_width=120;
+google_ad_height=240;
+google_ad_format="120x240_as";
+google_ad_type="text_image";
+google_ad_host_channel="0001+S0002+L0001";
+google_color_border="FFFFFF";
+google_color_bg="FFFFFF";
+google_color_link="000000";
+google_color_url="2288BB";
+google_color_text="222222";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=6182020288782773720&widgetType=AdSense&widgetId=AdSense1&action=editWidget&sectionId=sidebar-left-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("AdSense1"));' target='configAdSense1' title='Editar'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div></div>
+</aside>
+</div>
+</div>
+<div class='column-right-outer'>
+<div class='column-right-inner'>
+<aside>
+<div class='sidebar section' id='sidebar-right-1'><div class='widget BlogSearch' data-version='1' id='BlogSearch1'>
+<h2 class='title'>Buscar este blog</h2>
+<div class='widget-content'>
+<div id='BlogSearch1_form'>
+<form action='http://www.kontrol0.com/search' class='gsc-search-box'>
+<table cellpadding='0' cellspacing='0' class='gsc-search-box'>
+<tbody>
+<tr>
+<td class='gsc-input'>
+<input autocomplete='off' class='gsc-input' name='q' size='10' title='search' type='text' value=''/>
+</td>
+<td class='gsc-search-button'>
+<input class='gsc-search-button' title='search' type='submit' value='Buscar'/>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=6182020288782773720&widgetType=BlogSearch&widgetId=BlogSearch1&action=editWidget&sectionId=sidebar-right-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("BlogSearch1"));' target='configBlogSearch1' title='Editar'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' data-version='1' id='HTML2'>
+<h2 class='title'>Twitter @kontrol0</h2>
+<div class='widget-content'>
+<a class="twitter-timeline"  href="https://twitter.com/kontrol0"  data-widget-id="375001867412983808">Tweets por @kontrol0</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=6182020288782773720&widgetType=HTML&widgetId=HTML2&action=editWidget&sectionId=sidebar-right-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML2"));' target='configHTML2' title='Editar'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget HTML' data-version='1' id='HTML1'>
+<h2 class='title'>Perfiles Sociales y contacto</h2>
+<div class='widget-content'>
+<a href="https://twitter.com/kontrol0" target="_blank"><img alt="Twitter" src="http://1.bp.blogspot.com/-Tp6q4fxtByk/T73Z1RgPvzI/AAAAAAAAAoM/bOmVVBG14R8/s000/twitter.png" title="Twitter" /></a>
+<a href="https://www.facebook.com/pages/Kontrol0/345144528836054" target="_blank"><img alt="Facebook" src="http://4.bp.blogspot.com/-NRRbyjWLq-Q/T73Z1lL75PI/AAAAAAAAAoU/8sFu2gs0E-g/s000/facebook.png" title="Facebook" /></a>
+<a href="https://plus.google.com/u/0/b/115542801176687176653/115542801176687176653/posts" target="_blank"><img alt="Google Plus" src="http://1.bp.blogspot.com/-a5cd-JUzRgY/T73Z10Q7vuI/AAAAAAAAAoc/rWaBlJ4JhB8/s000/gplus.png" title="Google Plus" /></a>
+<a href="http://kontrol0.blogspot.com/feeds/posts/default" target="_blank"><img alt="RSS Feed" src="http://3.bp.blogspot.com/-lQaq7ouABLM/T73Z2BFjL3I/AAAAAAAAAos/Q7dGFnRfjA0/s000/rss.png" title="RSS Feed" /></a>
+<a href="mailto:ismaelgzd@gmail.com" target="_blank"><img alt="Email" src="http://1.bp.blogspot.com/-gCrZt4KaG-8/T73Z2UnzrPI/AAAAAAAAAo0/cinahH9_uek/s000/email.png" title="Email" /></a>
+<a href="http://flip.it/aTgUc" target="_blank"><img alt="Revista Kontrol0" src="http://3.bp.blogspot.com/-i-07Oyfgo8E/UW8IDbTOTAI/AAAAAAAAAk4/4zEwAi2knO0/s1600/flipboard_ico_32x32.jpg" title="Revista en Flipboard: Kontrol0 - Seguridad informática" /></a>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=6182020288782773720&widgetType=HTML&widgetId=HTML1&action=editWidget&sectionId=sidebar-right-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML1"));' target='configHTML1' title='Editar'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget BlogArchive' data-version='1' id='BlogArchive1'>
+<h2>Archivo del blog</h2>
+<div class='widget-content'>
+<div id='ArchiveList'>
+<div id='BlogArchive1_ArchiveList'>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://www.kontrol0.com/search?updated-min=2016-01-01T00:00:00%2B01:00&updated-max=2017-01-01T00:00:00%2B01:00&max-results=2'>
+2016
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2016_09_01_archive.html'>
+septiembre
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://www.kontrol0.com/search?updated-min=2015-01-01T00:00:00%2B01:00&updated-max=2016-01-01T00:00:00%2B01:00&max-results=5'>
+2015
+</a>
+<span class='post-count' dir='ltr'>(5)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2015_11_01_archive.html'>
+noviembre
+</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2015_06_01_archive.html'>
+junio
+</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2015_05_01_archive.html'>
+mayo
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2015_04_01_archive.html'>
+abril
+</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate expanded'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy toggle-open'>
+
+        &#9660;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://www.kontrol0.com/search?updated-min=2014-01-01T00:00:00%2B01:00&updated-max=2015-01-01T00:00:00%2B01:00&max-results=17'>
+2014
+</a>
+<span class='post-count' dir='ltr'>(17)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2014_12_01_archive.html'>
+diciembre
+</a>
+<span class='post-count' dir='ltr'>(4)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2014_06_01_archive.html'>
+junio
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2014_04_01_archive.html'>
+abril
+</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2014_03_01_archive.html'>
+marzo
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2014_02_01_archive.html'>
+febrero
+</a>
+<span class='post-count' dir='ltr'>(3)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate expanded'>
+<a class='post-count-link' href='http://www.kontrol0.com/2014_01_01_archive.html'>
+enero
+</a>
+<span class='post-count' dir='ltr'>(5)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://www.kontrol0.com/search?updated-min=2013-01-01T00:00:00%2B01:00&updated-max=2014-01-01T00:00:00%2B01:00&max-results=50'>
+2013
+</a>
+<span class='post-count' dir='ltr'>(129)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2013_12_01_archive.html'>
+diciembre
+</a>
+<span class='post-count' dir='ltr'>(8)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2013_11_01_archive.html'>
+noviembre
+</a>
+<span class='post-count' dir='ltr'>(13)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2013_10_01_archive.html'>
+octubre
+</a>
+<span class='post-count' dir='ltr'>(13)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2013_09_01_archive.html'>
+septiembre
+</a>
+<span class='post-count' dir='ltr'>(8)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2013_08_01_archive.html'>
+agosto
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2013_07_01_archive.html'>
+julio
+</a>
+<span class='post-count' dir='ltr'>(12)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2013_06_01_archive.html'>
+junio
+</a>
+<span class='post-count' dir='ltr'>(14)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2013_05_01_archive.html'>
+mayo
+</a>
+<span class='post-count' dir='ltr'>(7)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2013_04_01_archive.html'>
+abril
+</a>
+<span class='post-count' dir='ltr'>(14)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2013_03_01_archive.html'>
+marzo
+</a>
+<span class='post-count' dir='ltr'>(10)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2013_02_01_archive.html'>
+febrero
+</a>
+<span class='post-count' dir='ltr'>(11)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2013_01_01_archive.html'>
+enero
+</a>
+<span class='post-count' dir='ltr'>(17)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://www.kontrol0.com/search?updated-min=2012-01-01T00:00:00%2B01:00&updated-max=2013-01-01T00:00:00%2B01:00&max-results=7'>
+2012
+</a>
+<span class='post-count' dir='ltr'>(7)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2012_12_01_archive.html'>
+diciembre
+</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2012_07_01_archive.html'>
+julio
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2012_03_01_archive.html'>
+marzo
+</a>
+<span class='post-count' dir='ltr'>(3)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2012_02_01_archive.html'>
+febrero
+</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://www.kontrol0.com/search?updated-min=2011-01-01T00:00:00%2B01:00&updated-max=2012-01-01T00:00:00%2B01:00&max-results=18'>
+2011
+</a>
+<span class='post-count' dir='ltr'>(18)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2011_12_01_archive.html'>
+diciembre
+</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2011_11_01_archive.html'>
+noviembre
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2011_10_01_archive.html'>
+octubre
+</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2011_09_01_archive.html'>
+septiembre
+</a>
+<span class='post-count' dir='ltr'>(3)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2011_08_01_archive.html'>
+agosto
+</a>
+<span class='post-count' dir='ltr'>(6)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2011_06_01_archive.html'>
+junio
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2011_02_01_archive.html'>
+febrero
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2011_01_01_archive.html'>
+enero
+</a>
+<span class='post-count' dir='ltr'>(1)</span>
+</li>
+</ul>
+</li>
+</ul>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='toggle' href='javascript:void(0)'>
+<span class='zippy'>
+
+        &#9658;&#160;
+      
+</span>
+</a>
+<a class='post-count-link' href='http://www.kontrol0.com/search?updated-min=2010-01-01T00:00:00%2B01:00&updated-max=2011-01-01T00:00:00%2B01:00&max-results=2'>
+2010
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+<ul class='hierarchy'>
+<li class='archivedate collapsed'>
+<a class='post-count-link' href='http://www.kontrol0.com/2010_12_01_archive.html'>
+diciembre
+</a>
+<span class='post-count' dir='ltr'>(2)</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=6182020288782773720&widgetType=BlogArchive&widgetId=BlogArchive1&action=editWidget&sectionId=sidebar-right-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("BlogArchive1"));' target='configBlogArchive1' title='Editar'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div><div class='widget FollowByEmail' data-version='1' id='FollowByEmail1'>
+<h2 class='title'>Suscribir por email</h2>
+<div class='widget-content'>
+<div class='follow-by-email-inner'>
+<form action='https://feedburner.google.com/fb/a/mailverify' method='post' onsubmit='window.open("https://feedburner.google.com/fb/a/mailverify?uri=Kontrol0", "popupwindow", "scrollbars=yes,width=550,height=520"); return true' target='popupwindow'>
+<table width='100%'>
+<tr>
+<td>
+<input class='follow-by-email-address' name='email' placeholder='Email address...' type='text'/>
+</td>
+<td width='64px'>
+<input class='follow-by-email-submit' type='submit' value='Submit'/>
+</td>
+</tr>
+</table>
+<input name='uri' type='hidden' value='Kontrol0'/>
+<input name='loc' type='hidden' value='en_US'/>
+</form>
+</div>
+</div>
+<span class='item-control blog-admin'>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=6182020288782773720&widgetType=FollowByEmail&widgetId=FollowByEmail1&action=editWidget&sectionId=sidebar-right-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("FollowByEmail1"));' target='configFollowByEmail1' title='Editar'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</span>
+</div><div class='widget Subscribe' data-version='1' id='Subscribe1'>
+<div style='white-space:nowrap'>
+<h2 class='title'>Suscribirse por feed</h2>
+<div class='widget-content'>
+<div class='subscribe-wrapper subscribe-type-POST'>
+<div class='subscribe expanded subscribe-type-POST' id='SW_READER_LIST_Subscribe1POST' style='display:none;'>
+<div class='top'>
+<span class='inner' onclick='return(_SW_toggleReaderList(event, "Subscribe1POST"));'>
+<img class='subscribe-dropdown-arrow' src='https://img2.blogblog.com/img/widgets/arrow_dropdown.gif'/>
+<img align='absmiddle' alt='' border='0' class='feed-icon' src='https://img1.blogblog.com/img/icon_feed12.png'/>
+Entradas
+</span>
+<div class='feed-reader-links'>
+<a class='feed-reader-link' href='https://www.netvibes.com/subscribe.php?url=http%3A%2F%2Fwww.kontrol0.com%2Ffeeds%2Fposts%2Fdefault' target='_blank'>
+<img src='https://img1.blogblog.com/img/widgets/subscribe-netvibes.png'/>
+</a>
+<a class='feed-reader-link' href='https://add.my.yahoo.com/content?url=http%3A%2F%2Fwww.kontrol0.com%2Ffeeds%2Fposts%2Fdefault' target='_blank'>
+<img src='https://img1.blogblog.com/img/widgets/subscribe-yahoo.png'/>
+</a>
+<a class='feed-reader-link' href='http://www.kontrol0.com/feeds/posts/default' target='_blank'>
+<img align='absmiddle' class='feed-icon' src='https://img1.blogblog.com/img/icon_feed12.png'/>
+                  Atom
+                </a>
+</div>
+</div>
+<div class='bottom'></div>
+</div>
+<div class='subscribe' id='SW_READER_LIST_CLOSED_Subscribe1POST' onclick='return(_SW_toggleReaderList(event, "Subscribe1POST"));'>
+<div class='top'>
+<span class='inner'>
+<img class='subscribe-dropdown-arrow' src='https://img2.blogblog.com/img/widgets/arrow_dropdown.gif'/>
+<span onclick='return(_SW_toggleReaderList(event, "Subscribe1POST"));'>
+<img align='absmiddle' alt='' border='0' class='feed-icon' src='https://img1.blogblog.com/img/icon_feed12.png'/>
+Entradas
+</span>
+</span>
+</div>
+<div class='bottom'></div>
+</div>
+</div>
+<div class='subscribe-wrapper subscribe-type-PER_POST'>
+<div class='subscribe expanded subscribe-type-PER_POST' id='SW_READER_LIST_Subscribe1PER_POST' style='display:none;'>
+<div class='top'>
+<span class='inner' onclick='return(_SW_toggleReaderList(event, "Subscribe1PER_POST"));'>
+<img class='subscribe-dropdown-arrow' src='https://img2.blogblog.com/img/widgets/arrow_dropdown.gif'/>
+<img align='absmiddle' alt='' border='0' class='feed-icon' src='https://img1.blogblog.com/img/icon_feed12.png'/>
+Comentarios
+</span>
+<div class='feed-reader-links'>
+<a class='feed-reader-link' href='https://www.netvibes.com/subscribe.php?url=http%3A%2F%2Fwww.kontrol0.com%2Ffeeds%2F6894811267562369861%2Fcomments%2Fdefault' target='_blank'>
+<img src='https://img1.blogblog.com/img/widgets/subscribe-netvibes.png'/>
+</a>
+<a class='feed-reader-link' href='https://add.my.yahoo.com/content?url=http%3A%2F%2Fwww.kontrol0.com%2Ffeeds%2F6894811267562369861%2Fcomments%2Fdefault' target='_blank'>
+<img src='https://img1.blogblog.com/img/widgets/subscribe-yahoo.png'/>
+</a>
+<a class='feed-reader-link' href='http://www.kontrol0.com/feeds/6894811267562369861/comments/default' target='_blank'>
+<img align='absmiddle' class='feed-icon' src='https://img1.blogblog.com/img/icon_feed12.png'/>
+                  Atom
+                </a>
+</div>
+</div>
+<div class='bottom'></div>
+</div>
+<div class='subscribe' id='SW_READER_LIST_CLOSED_Subscribe1PER_POST' onclick='return(_SW_toggleReaderList(event, "Subscribe1PER_POST"));'>
+<div class='top'>
+<span class='inner'>
+<img class='subscribe-dropdown-arrow' src='https://img2.blogblog.com/img/widgets/arrow_dropdown.gif'/>
+<span onclick='return(_SW_toggleReaderList(event, "Subscribe1PER_POST"));'>
+<img align='absmiddle' alt='' border='0' class='feed-icon' src='https://img1.blogblog.com/img/icon_feed12.png'/>
+Comentarios
+</span>
+</span>
+</div>
+<div class='bottom'></div>
+</div>
+</div>
+<div style='clear:both'></div>
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=6182020288782773720&widgetType=Subscribe&widgetId=Subscribe1&action=editWidget&sectionId=sidebar-right-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("Subscribe1"));' target='configSubscribe1' title='Editar'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget Label' data-version='1' id='Label1'>
+<h2>Etiquetas</h2>
+<div class='widget-content cloud-label-widget-content'>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/1gbdeinfo'>1gbdeinfo</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/1Password'>1Password</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Acunetix'>Acunetix</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/An%C3%A1lisis%20forense'>Análisis forense</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/anonimato'>anonimato</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Anonimo'>Anonimo</a>
+<span class='label-count' dir='ltr'>(5)</span>
+</span>
+<span class='label-size label-size-4'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Apple'>Apple</a>
+<span class='label-count' dir='ltr'>(16)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Armitage'>Armitage</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/ataques'>ataques</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Auditor%C3%ADa%20de%20seguridad'>Auditoría de seguridad</a>
+<span class='label-count' dir='ltr'>(9)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/auntenticaci%C3%B3n'>auntenticación</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/autopwn'>autopwn</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/auxiliary%20gather%20emails%20collector'>auxiliary gather emails collector</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/aventura'>aventura</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-4'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Backbox'>Backbox</a>
+<span class='label-count' dir='ltr'>(25)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Backtrack'>Backtrack</a>
+<span class='label-count' dir='ltr'>(4)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/base%20de%20datos'>base de datos</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Bug'>Bug</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Bug%20Bountry'>Bug Bountry</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Bugtraq'>Bugtraq</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Burp%20Suite'>Burp Suite</a>
+<span class='label-count' dir='ltr'>(4)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/buscadores'>buscadores</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/bypass'>bypass</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/CEH'>CEH</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/certificaciion'>certificaciion</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Chema%20Alonso'>Chema Alonso</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/chmod'>chmod</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/cidrado'>cidrado</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Ciencia'>Ciencia</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/cifrado'>cifrado</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/CISA'>CISA</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Cisco'>Cisco</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/CISSP'>CISSP</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/compartir'>compartir</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/comunidad'>comunidad</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/conexiones'>conexiones</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/congreso'>congreso</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/contrase%C3%B1a'>contraseña</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/crack%20wifi'>crack wifi</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Credit%20Card'>Credit Card</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Creepy'>Creepy</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/CTF'>CTF</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-4'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/curso'>curso</a>
+<span class='label-count' dir='ltr'>(18)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/ddos'>ddos</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/deepweb'>deepweb</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/denegacion%20de%20servicion'>denegacion de servicion</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Developers'>Developers</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/dns'>dns</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Documental'>Documental</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/dummies'>dummies</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/ebook'>ebook</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/EC-Council'>EC-Council</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/emails'>emails</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/enelpc'>enelpc</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Entrevista'>Entrevista</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/enumeraci%C3%B3n'>enumeración</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/%C3%A9pico.%20ingenio'>épico. ingenio</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/escalada%20de%20privilegios'>escalada de privilegios</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/escaner'>escaner</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/%C3%89tica'>Ética</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/evento'>evento</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/exploit'>exploit</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/exploit-db'>exploit-db</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/extraccion%20de%20mails'>extraccion de mails</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/fake'>fake</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/fallo%20de%20seguridad'>fallo de seguridad</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Fedora'>Fedora</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/fimap'>fimap</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/fingerprinting'>fingerprinting</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/firebug'>firebug</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/firefox'>firefox</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/fireftp'>fireftp</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/footprinting'>footprinting</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-4'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/formaci%C3%B3n'>formación</a>
+<span class='label-count' dir='ltr'>(16)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/foxyproxy'>foxyproxy</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/fraude'>fraude</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Fuerza%20bruta'>Fuerza bruta</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/fuga%20de%20informaci%C3%B3n'>fuga de información</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/GFI%20Languard'>GFI Languard</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/GoLISMERO'>GoLISMERO</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Google'>Google</a>
+<span class='label-count' dir='ltr'>(4)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Google%20Dorks'>Google Dorks</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/guide'>guide</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Hack'>Hack</a>
+<span class='label-count' dir='ltr'>(10)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Hack%20x%20Crack'>Hack x Crack</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-4'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Hacker'>Hacker</a>
+<span class='label-count' dir='ltr'>(22)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Hacker%20%C3%89pico'>Hacker Épico</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/hackers'>hackers</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-5'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/hacking'>hacking</a>
+<span class='label-count' dir='ltr'>(43)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/hacking%20web'>hacking web</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/hakin9'>hakin9</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/HAProxy'>HAProxy</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Hijacking'>Hijacking</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/historia.'>historia.</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/historias'>historias</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Hydra'>Hydra</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/iMessage'>iMessage</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Information%20Gathering'>Information Gathering</a>
+<span class='label-count' dir='ltr'>(7)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Ingenier%C3%ADa%20Social'>Ingeniería Social</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Instagram'>Instagram</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Internet'>Internet</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/ios'>ios</a>
+<span class='label-count' dir='ltr'>(6)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/iPad'>iPad</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/iPhone'>iPhone</a>
+<span class='label-count' dir='ltr'>(6)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/IPTABLE'>IPTABLE</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Isaac%20Asimov'>Isaac Asimov</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/ISACA'>ISACA</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Joomla'>Joomla</a>
+<span class='label-count' dir='ltr'>(4)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Joomsacn'>Joomsacn</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/joomscan'>joomscan</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/K0SASP'>K0SASP</a>
+<span class='label-count' dir='ltr'>(5)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Kali%20Linux'>Kali Linux</a>
+<span class='label-count' dir='ltr'>(9)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Keepnote'>Keepnote</a>
+<span class='label-count' dir='ltr'>(4)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Kevin%20Mitnick'>Kevin Mitnick</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Keylogger'>Keylogger</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/kim%20doctom'>kim doctom</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/knock-scan'>knock-scan</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/La%20Biblia%20Hacker'>La Biblia Hacker</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/laboratorio'>laboratorio</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/lammers'>lammers</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/lfi'>lfi</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-4'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/libro'>libro</a>
+<span class='label-count' dir='ltr'>(12)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Linux'>Linux</a>
+<span class='label-count' dir='ltr'>(5)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/lumension'>lumension</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-4'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Mac%20OS%20X'>Mac OS X</a>
+<span class='label-count' dir='ltr'>(12)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/macOS'>macOS</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Maltego'>Maltego</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Marketing%20Online'>Marketing Online</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/MD5%2BSALT'>MD5+SALT</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Mega'>Mega</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Metasploit'>Metasploit</a>
+<span class='label-count' dir='ltr'>(5)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Microsoft'>Microsoft</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/mifare'>mifare</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/NAS'>NAS</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Navaja%20Negra'>Navaja Negra</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/navegacion%20privada'>navegacion privada</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Nessus'>Nessus</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/nfc'>nfc</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/nmap'>nmap</a>
+<span class='label-count' dir='ltr'>(6)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Notas'>Notas</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-4'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Noticias'>Noticias</a>
+<span class='label-count' dir='ltr'>(12)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/nse'>nse</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/offensive-security'>offensive-security</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Onion%20Routing'>Onion Routing</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/OpenSUSE'>OpenSUSE</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/OSCP'>OSCP</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/OWASP%20ZAP'>OWASP ZAP</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/ParameterFuzz'>ParameterFuzz</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Password'>Password</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Pastbin'>Pastbin</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/pastebi'>pastebi</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/pel%C3%ADcula'>película</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/pentester'>pentester</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/pentestin'>pentestin</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-4'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/pentesting'>pentesting</a>
+<span class='label-count' dir='ltr'>(12)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/permisos'>permisos</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/phishing'>phishing</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Pivoting'>Pivoting</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Pr%C3%A1ctica'>Práctica</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/privacidad'>privacidad</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/proxy'>proxy</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/PsExec'>PsExec</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/PsTools'>PsTools</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/punto%20de%20montaje'>punto de montaje</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/recopilaci%C3%B3n%20de%20Informaci%C3%B3n'>recopilación de Información</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Red%20tor'>Red tor</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/reporting'>reporting</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Revista'>Revista</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/rfi'>rfi</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/RFID'>RFID</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/rkhunter'>rkhunter</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Roorted%20CON'>Roorted CON</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/rootkit'>rootkit</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/sacar%20informacion'>sacar informacion</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/scan'>scan</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/scanners'>scanners</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/script'>script</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/securitytube'>securitytube</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/securizaci%C3%B3n'>securización</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-4'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Seguridad'>Seguridad</a>
+<span class='label-count' dir='ltr'>(16)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/seguridad%20web'>seguridad web</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/SEO'>SEO</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/servidor'>servidor</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/shell%20remota'>shell remota</a>
+<span class='label-count' dir='ltr'>(4)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/SIRI'>SIRI</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/sistema%20operativo'>sistema operativo</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Skimming'>Skimming</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/slowhttptest'>slowhttptest</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Softaware'>Softaware</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/spam'>spam</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/spyder'>spyder</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/sql'>sql</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/sqli'>sqli</a>
+<span class='label-count' dir='ltr'>(4)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/SQLinjection'>SQLinjection</a>
+<span class='label-count' dir='ltr'>(7)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/SQLmap'>SQLmap</a>
+<span class='label-count' dir='ltr'>(7)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/SSS'>SSS</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/suplantaci%C3%B3n'>suplantación</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/tabla%20de%20particiones'>tabla de particiones</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/TBP%20AFK'>TBP AFK</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/TCP'>TCP</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/TCPDump'>TCPDump</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/tecnolog%C3%ADa'>tecnología</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/The%20pirate%20Bay'>The pirate Bay</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/theHarvester'>theHarvester</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/three%20way%20handshake'>three way handshake</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/TOR'>TOR</a>
+<span class='label-count' dir='ltr'>(4)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/tortazo'>tortazo</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Truco'>Truco</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/tutorial'>tutorial</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/unlock'>unlock</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/vega'>vega</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/vidalia'>vidalia</a>
+<span class='label-count' dir='ltr'>(5)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/VisualSniff'>VisualSniff</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/vulnerabilidad'>vulnerabilidad</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-3'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/vulnerabilidades'>vulnerabilidades</a>
+<span class='label-count' dir='ltr'>(8)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/w3af'>w3af</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/webshell'>webshell</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/weevely'>weevely</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/whatsapp'>whatsapp</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/wifite'>wifite</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/windows%207'>windows 7</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Windows%208'>Windows 8</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Windows*'>Windows*</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/wireless'>wireless</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/wireshark'>wireshark</a>
+<span class='label-count' dir='ltr'>(2)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Wordpress'>Wordpress</a>
+<span class='label-count' dir='ltr'>(4)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/xss'>xss</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/youtube'>youtube</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-1'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/Zabbix'>Zabbix</a>
+<span class='label-count' dir='ltr'>(1)</span>
+</span>
+<span class='label-size label-size-2'>
+<a dir='ltr' href='http://www.kontrol0.com/search/label/zenmap'>zenmap</a>
+<span class='label-count' dir='ltr'>(3)</span>
+</span>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=6182020288782773720&widgetType=Label&widgetId=Label1&action=editWidget&sectionId=sidebar-right-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("Label1"));' target='configLabel1' title='Editar'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div></div>
+</aside>
+</div>
+</div>
+</div>
+<div style='clear: both'></div>
+<!-- columns -->
+</div>
+<!-- main -->
+</div>
+</div>
+<div class='main-cap-bottom cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+<footer>
+<div class='footer-outer'>
+<div class='footer-cap-top cap-top'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+<div class='fauxborder-left footer-fauxborder-left'>
+<div class='fauxborder-right footer-fauxborder-right'></div>
+<div class='region-inner footer-inner'>
+<div class='foot no-items section' id='footer-1'></div>
+<table border='0' cellpadding='0' cellspacing='0' class='section-columns columns-2'>
+<tbody>
+<tr>
+<td class='first columns-cell'>
+<div class='foot section' id='footer-2-1'><div class='widget Image' data-version='1' id='Image2'>
+<h2>Colaboraciones</h2>
+<div class='widget-content'>
+<a href='http://hakin9.org'>
+<img alt='Colaboraciones' height='53' id='Image2_img' src='http://4.bp.blogspot.com/-s_cjgj-pHF0/UjoAkMxf3fI/AAAAAAAAAPA/afuAGHQ46Fc/s1600/logo_h9_b.png' width='210'/>
+</a>
+<br/>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=6182020288782773720&widgetType=Image&widgetId=Image2&action=editWidget&sectionId=footer-2-1' onclick='return _WidgetManager._PopupConfig(document.getElementById("Image2"));' target='configImage2' title='Editar'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div></div>
+</td>
+<td class='columns-cell'>
+<div class='foot no-items section' id='footer-2-2'></div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- outside of the include in order to lock Attribution widget -->
+<div class='foot section' id='footer-3'><div class='widget Attribution' data-version='1' id='Attribution1'>
+<div class='widget-content' style='text-align: center;'>
+&#169; 2015 kontrol0.com - The underway security. Con la tecnología de <a href='https://www.blogger.com' target='_blank'>Blogger</a>.
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='//www.blogger.com/rearrange?blogID=6182020288782773720&widgetType=Attribution&widgetId=Attribution1&action=editWidget&sectionId=footer-3' onclick='return _WidgetManager._PopupConfig(document.getElementById("Attribution1"));' target='configAttribution1' title='Editar'>
+<img alt='' height='18' src='https://resources.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div></div>
+</div>
+</div>
+<div class='footer-cap-bottom cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+</footer>
+<!-- content -->
+</div>
+</div>
+<div class='content-cap-bottom cap-bottom'>
+<div class='cap-left'></div>
+<div class='cap-right'></div>
+</div>
+</div>
+</div>
+<script type='text/javascript'>
+    window.setTimeout(function() {
+        document.body.className = document.body.className.replace('loading', '');
+      }, 10);
+  </script>
+
+
+<!-- 'Tú eres el responsable de informar a los visitantes de tu blog de las cookies que utilizas en él. Para más información, ve a http://www.blogger.com/go/cookiechoices.' -->
+<script src="/js/cookiechoices.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function(event) {
+    window.cookieChoices && cookieChoices.showCookieConsentBar && cookieChoices.showCookieConsentBar(
+        (window.cookieOptions && cookieOptions.msg) || 'Este sitio emplea cookies de Google para prestar sus servicios, para personalizar anuncios y para analizar el tráfico. Google recibe información sobre tu uso de este sitio web. Si utilizas este sitio web, se sobreentiende que aceptas el uso de cookies.',
+        (window.cookieOptions && cookieOptions.close) || 'Entendido',
+        (window.cookieOptions && cookieOptions.learn) || 'Más información',
+        (window.cookieOptions && cookieOptions.link) || 'https://www.blogger.com/go/blogspot-cookies');
+  });
+</script>
+
+
+<script type="text/javascript" src="https://www.blogger.com/static/v1/widgets/455585668-widgets.js"></script>
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+<script type='text/javascript'>
+window['__wavt'] = 'AOuZoY4xTH-dKNiDrXA63f7LqDhhNj5JQw:1476737827378';_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d6182020288782773720','//www.kontrol0.com/2014/01/extraer-datos-y-hacer-un-dump-de-las.html','6182020288782773720');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'blogId': '6182020288782773720', 'bloggerUrl': 'https://www.blogger.com', 'title': 'Kontrol0', 'pageType': 'item', 'postId': '6894811267562369861', 'url': 'http://www.kontrol0.com/2014/01/extraer-datos-y-hacer-un-dump-de-las.html', 'canonicalUrl': 'http://www.kontrol0.com/2014/01/extraer-datos-y-hacer-un-dump-de-las.html', 'homepageUrl': 'http://www.kontrol0.com/', 'searchUrl': 'http://www.kontrol0.com/search', 'canonicalHomepageUrl': 'http://www.kontrol0.com/', 'blogspotFaviconUrl': 'http://www.kontrol0.com/favicon.ico', 'enabledCommentProfileImages': true, 'gPlusViewType': 'FILTERED_POSTMOD', 'adultContent': false, 'analyticsAccountNumber': 'UA-47587303-1', 'useUniversalAnalytics': false, 'pageName': 'Extraer datos y hacer un Dump de las tarjetas RFID Mifare Classic con ACR122U y nfc-mfclassic+nfc-mfclassic', 'pageTitle': 'Kontrol0: Extraer datos y hacer un Dump de las tarjetas RFID Mifare Classic con ACR122U y nfc-mfclassic+nfc-mfclassic', 'metaDescription': 'Extraer datos y hacer un Dump de las tarjetas RFID Mifare Classic con ACR122U y nfc-mfclassic+nfc-mfclassic', 'encoding': 'UTF-8', 'locale': 'es', 'localeUnderscoreDelimited': 'es', 'isPrivate': false, 'isMobile': false, 'isMobileRequest': false, 'mobileClass': '', 'isPrivateBlog': false, 'languageDirection': 'ltr', 'feedLinks': '\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22Kontrol0 - Atom\x22 href\x3d\x22http://www.kontrol0.com/feeds/posts/default\x22 /\x3e\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/rss+xml\x22 title\x3d\x22Kontrol0 - RSS\x22 href\x3d\x22http://www.kontrol0.com/feeds/posts/default?alt\x3drss\x22 /\x3e\n\x3clink rel\x3d\x22service.post\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22Kontrol0 - Atom\x22 href\x3d\x22https://www.blogger.com/feeds/6182020288782773720/posts/default\x22 /\x3e\n\n\x3clink rel\x3d\x22alternate\x22 type\x3d\x22application/atom+xml\x22 title\x3d\x22Kontrol0 - Atom\x22 href\x3d\x22http://www.kontrol0.com/feeds/6894811267562369861/comments/default\x22 /\x3e\n', 'meTag': '', 'openIdOpTag': '', 'postImageThumbnailUrl': 'http://2.bp.blogspot.com/-UhfKoZhr9oc/Ut1v6DBAKFI/AAAAAAAAAgM/tbD3RONAZxw/s72-c/mifare_1k_UID_Fig_2.jpg', 'postImageUrl': 'http://2.bp.blogspot.com/-UhfKoZhr9oc/Ut1v6DBAKFI/AAAAAAAAAgM/tbD3RONAZxw/s1600/mifare_1k_UID_Fig_2.jpg', 'mobileHeadScript': '', 'adsenseClientId': 'pub-0213388943213903', 'adsenseHostId': 'ca-host-pub-1556223355139109', 'ieCssRetrofitLinks': '\x3c!--[if IE]\x3e\x3cscript type\x3d\x22text/javascript\x22 src\x3d\x22https://www.blogger.com/static/v1/jsbin/3382512426-ieretrofit.js\x22\x3e\x3c/script\x3e\n\x3c![endif]--\x3e', 'view': '', 'dynamicViewsCommentsSrc': '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js', 'dynamicViewsScriptSrc': '//www.blogblog.com/dynamicviews/a60a78fc1a41d76a', 'plusOneApiSrc': 'https://apis.google.com/js/plusone.js', 'sharing': {'platforms': [{'name': 'Obtener enlace', 'key': 'link', 'shareMessage': 'Obtener enlace', 'target': ''}, {'name': 'Facebook', 'key': 'facebook', 'shareMessage': 'Compartir en Facebook', 'target': 'facebook'}, {'name': 'Escribe un blog', 'key': 'blogThis', 'shareMessage': 'Escribe un blog', 'target': 'blog'}, {'name': 'Twitter', 'key': 'twitter', 'shareMessage': 'Compartir en Twitter', 'target': 'twitter'}, {'name': 'Pinterest', 'key': 'pinterest', 'shareMessage': 'Compartir en Pinterest', 'target': 'pinterest'}, {'name': 'Google+', 'key': 'googlePlus', 'shareMessage': 'Compartir en Google+', 'target': 'googleplus'}, {'name': 'Correo electrónico', 'key': 'email', 'shareMessage': 'Correo electrónico', 'target': 'email'}], 'googlePlusShareButtonWidth': 300, 'googlePlusBootstrap': '\x3cscript type\x3d\x22text/javascript\x22\x3ewindow.___gcfg \x3d {\x27lang\x27: \x27es\x27};\x3c/script\x3e'}}}, {'name': 'features', 'data': {'widgetVisibility': true}}, {'name': 'messages', 'data': {'linkCopiedToClipboard': 'El enlace se ha copiado en el Portapapeles.', 'postLink': 'Enlace de la entrada'}}, {'name': 'template', 'data': {'name': 'custom', 'localizedName': 'Personalizado', 'isResponsive': false, 'isAlternateRendering': false, 'isCustom': true}}, {'name': 'view', 'data': {'classic': {'name': 'classic', 'url': '?view\x3dclassic'}, 'flipcard': {'name': 'flipcard', 'url': '?view\x3dflipcard'}, 'magazine': {'name': 'magazine', 'url': '?view\x3dmagazine'}, 'mosaic': {'name': 'mosaic', 'url': '?view\x3dmosaic'}, 'sidebar': {'name': 'sidebar', 'url': '?view\x3dsidebar'}, 'snapshot': {'name': 'snapshot', 'url': '?view\x3dsnapshot'}, 'timeslide': {'name': 'timeslide', 'url': '?view\x3dtimeslide'}, 'isMobile': false, 'title': 'Extraer datos y hacer un Dump de las tarjetas RFID Mifare Classic con ACR122U y nfc-mfclassic+nfc-mfclassic', 'description': 'Este tipo de tarjetas utilizadas normalmente en Estaciones de esquí, Aeropuertos, empresas privadas, transportes públicos, etc, utilizan una...', 'featuredImage': 'http://2.bp.blogspot.com/-UhfKoZhr9oc/Ut1v6DBAKFI/AAAAAAAAAgM/tbD3RONAZxw/s1600/mifare_1k_UID_Fig_2.jpg', 'url': 'http://www.kontrol0.com/2014/01/extraer-datos-y-hacer-un-dump-de-las.html', 'type': 'item', 'isPage': false, 'isPost': true, 'isHomepage': false, 'isArchive': false, 'isSearch': false, 'postId': 6894811267562369861}}]);
+_WidgetManager._RegisterWidget('_NavbarView', new _WidgetInfo('Navbar1', 'navbar', null, document.getElementById('Navbar1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'header', null, document.getElementById('Header1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_PageListView', new _WidgetInfo('PageList1', 'crosscol', null, document.getElementById('PageList1'), {'title': 'Pages', 'links': [{'isCurrentPage': false, 'href': 'http://www.kontrol0.com/', 'title': 'Página principal'}, {'isCurrentPage': false, 'href': 'http://k0sasp.kontrol0.com', 'title': 'K0SASP'}], 'mobile': false}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main', null, document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'showBacklinks': true, 'postId': '6894811267562369861', 'legacyCommentModerationUrl': 'https://www.blogger.com/moderate-legacy-comment.g?blogID\x3d6182020288782773720', 'iframeCommentsId': 'gpluscomments', 'viewType': 'FILTERED_POSTMOD', 'lightboxEnabled': true, 'lightboxModuleUrl': 'https://www.blogger.com/static/v1/jsbin/2253017818-lbx__es.js', 'lightboxCssUrl': 'https://www.blogger.com/static/v1/v-css/368954415-lightbox_bundle.css'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_PopularPostsView', new _WidgetInfo('PopularPosts1', 'sidebar-left-1', null, document.getElementById('PopularPosts1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AdSenseView', new _WidgetInfo('AdSense1', 'sidebar-left-1', null, document.getElementById('AdSense1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogSearchView', new _WidgetInfo('BlogSearch1', 'sidebar-right-1', null, document.getElementById('BlogSearch1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML2', 'sidebar-right-1', null, document.getElementById('HTML2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML1', 'sidebar-right-1', null, document.getElementById('HTML1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebar-right-1', null, document.getElementById('BlogArchive1'), {'languageDirection': 'ltr', 'loadingMessage': 'Cargando...'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FollowByEmailView', new _WidgetInfo('FollowByEmail1', 'sidebar-right-1', null, document.getElementById('FollowByEmail1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_SubscribeView', new _WidgetInfo('Subscribe1', 'sidebar-right-1', null, document.getElementById('Subscribe1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LabelView', new _WidgetInfo('Label1', 'sidebar-right-1', null, document.getElementById('Label1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_ImageView', new _WidgetInfo('Image2', 'footer-2-1', null, document.getElementById('Image2'), {'resize': false}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AttributionView', new _WidgetInfo('Attribution1', 'footer-3', null, document.getElementById('Attribution1'), {'attribution': '&#169; 2015 kontrol0.com - The underway security. Con la tecnología de \x3ca href\x3d\x27https://www.blogger.com\x27 target\x3d\x27_blank\x27\x3eBlogger\x3c/a\x3e.'}, 'displayModeFull'));
+</script>
+</body>
+</html>

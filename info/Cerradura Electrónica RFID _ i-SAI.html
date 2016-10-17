@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html xml:lang="es" lang="es">
+<head>
+	<title>Cerradura Electrónica RFID | i-SAI</title>
+	<meta name="title" content="Cerradura electrónica RFID | I-Sai" />
+    <meta name="description" content="La cerradura electrónica RFID es un sistema de control seguro, inteligente e innovador. Sin necesidad de cablear." />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="author" content="wegetit | wegetit.eu" />  
+	<meta http-equiv="content-language" content="es" />
+	<meta name="robots" content="all" />
+	<meta http-equiv="imagetoolbar" content="no" />
+    <link rel="shortcut icon" href="/css/img/favicon.ico" />
+    <link rel="apple-touch-icon" href="/css/img/touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/css/img/touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/css/img/touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/css/img/touch-icon-ipad-retina.png" />
+
+	<script type="text/javascript" src="//use.typekit.net/hfb8azf.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+    <script src="/js/modernizr.js" type="text/javascript"></script>
+    <script src="/js/conditionizr.js" type="text/javascript"></script>
+    <script src="/js/jquery.fancybox-1.3.4.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.fancybox-1.3.4.css" />
+    <script>
+		$(document).ready(function(){
+			$(".scroll").click(function(event){		
+				event.preventDefault();
+				$('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
+			});
+			$("#newsletter_form").submit(function(){
+				$.ajax({
+					type     : "POST",
+					cache    : false,
+					url      : "/es-php/newsletter.php",
+					data     : $("#newsletter_form").serializeArray(),
+					success: function(data) {
+						$.fancybox(data);
+					}
+				});
+				return false;
+			});
+		});
+	</script>
+
+	<script>
+	var _gaq=[['_setAccount','UA-39963408-1'],['_trackPageview']];
+	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+	s.parentNode.insertBefore(g,s)})(document,'script');
+	</script>	    <script src="/js/jquery.scrollTo-1.4.3.1-min.js" type="text/javascript"></script>
+    <script src="/js/jquery.serialScroll-1.2.2-min.js" type="text/javascript"></script>
+    <script>
+		$(document).ready(function(){
+			$('#gallery').serialScroll({
+				target:'.content',
+				items:'li', // Selector to the items ( relative to the matched elements, '#sections' in this case )
+				prev:'span.btn_prev',// Selector to the 'prev' button (absolute!, meaning it's relative to the document)
+				next:'span.btn_next',// Selector to the 'next' button (absolute too)
+				axis:'x',// The default is 'y' scroll on both ways
+				duration:700,// Length of the animation (if you scroll 2 axes and use queue, then each axis take half this time)
+				force:true, // Force a scroll to the element specified by 'start' (some browsers don't reset on refreshes)		
+				start: 0, // On which element (index) to begin ( 0 is the default, redundant in this case )		
+				stop:true,
+				lock:true,
+				cycle:true,// Cycle endlessly ( constant velocity, true is the default )
+				constant:false,
+				step:1 // How many items to scroll each time ( 1 is the default, no need to specify )	
+			});
+			
+			$('#installations').serialScroll({
+				target:'.content',
+				items:'li', // Selector to the items ( relative to the matched elements, '#sections' in this case )
+				prev:'span.btn_prev',// Selector to the 'prev' button (absolute!, meaning it's relative to the document)
+				next:'span.btn_next',// Selector to the 'next' button (absolute too)
+				axis:'x',// The default is 'y' scroll on both ways
+				duration:700,// Length of the animation (if you scroll 2 axes and use queue, then each axis take half this time)
+				force:true, // Force a scroll to the element specified by 'start' (some browsers don't reset on refreshes)		
+				start: 0, // On which element (index) to begin ( 0 is the default, redundant in this case )		
+				stop:true,
+				lock:true,
+				cycle:true,// Cycle endlessly ( constant velocity, true is the default )
+				constant:false,
+				step:4, // How many items to scroll each time ( 1 is the default, no need to specify )	
+				exclude:3
+			});
+		});
+	</script>    
+
+
+</head>
+<body class="productos-y-soluciones detalle" id="control-de-accesos">
+<div id="top">
+	<div class="content">
+        <div id="logo">
+            <a href="/es/" title="i-SAI"><span class="ico"></span>i-SAI</a>
+        </div>
+        
+        <nav id="languages">
+            <!--<ul>
+                <li><a href="/es/">Es</a></li>
+                <li><a href="/eu/">Eu</a></li>
+            </ul>-->
+        </nav>
+        
+        <nav id="secondary-menu">
+            <ul>
+                <li><a href="/es/trabaja-en-i-sai/">Trabaja en i-SAI</a></li>
+                <li><a href="/es/contacta-con-i-sai/">Contacto</a></li>
+                <li class="sat-online"><a href="/es/sat-online/"><span class="ico"></span>i-SAI SAT online<span class="arrow"></span></a></li>
+            </ul>
+        </nav>
+        
+        <nav id="main-menu">
+            <ul>
+                <li><a href="/es/i-sai/">Conoce i-SAI</a></li>
+                <li><a href="/es/proyectos/">Proyectos</a></li>
+                <li class="active"><a href="/es/productos-y-soluciones/control-de-accesos/">Productos y soluciones</a></li>
+                <li><a href="/es/soporte-tecnico-sat/">Ayuda SAT</a></li>
+            </ul>
+        </nav>
+	</div>
+</div>
+<hr /><nav id="productheader">
+    <ul>
+        <li id="control-de-accesos" class="active"><a href="/es/productos-y-soluciones/control-de-accesos/"><span class="ico"></span>Control<br />de Accesos</a></li>
+        <li id="sistemas-de-seguridad"><a href="/es/productos-y-soluciones/sistemas-de-seguridad/"><span class="ico"></span>Sistemas<br />de Seguridad</a></li>
+        <li id="plataforma-de-seguridad"><a href="/es/productos-y-soluciones/plataforma-de-seguridad/"><span class="ico"></span>Plataforma<br />de Seguridad</a></li>
+        <li id="mantenimiento"><a href="/es/productos-y-soluciones/mantenimiento/"><span class="ico"></span>Mantenimiento /<br />S.A.T. de Sistemas</a></li>
+    </ul>
+</nav>    <header>
+        <ol id="breadcrumbs">
+            <li><a href="/es/">Home</a></li>
+            <li><a href="/es/productos-y-soluciones/control-de-accesos/">Productos y soluciones</a></li>
+            <li>Control de Accesos</li>
+        </ol>
+        
+        <h1>Cerradura Electrónica RFID</h1>
+        
+        <div class="social">
+        	<p>Compartir:</p>
+        	<nav>
+            	<ul>
+                	<!-- Detectar la URL del proyecto y ponerla en URLAQUI. En el caso de Twitter EL TÍTULO también en TITULOAQUI con los espacios con %20 -->
+                	<li class="facebook"><a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.i-sai.net%2Fes%2Fproductos-y-soluciones%2Fcontrol-de-accesos%2Fcerraduras-electronicas-wireless-en-red%2Fcerradura-electronica-RFID" title="Compartir en Facebook" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=339,width=600');return false;"></a></li>
+                    <li class="twitter"><a href="http://twitter.com/share?text=i-SAI%3A+Cerradura+Electr%C3%B3nica+RFID&url=http%3A%2F%2Fwww.i-sai.net%2Fes%2Fproductos-y-soluciones%2Fcontrol-de-accesos%2Fcerraduras-electronicas-wireless-en-red%2Fcerradura-electronica-RFID" title="Compartir en Twitter" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=420,width=550');return false;"></a></li>
+                    <li class="gplus"><a href="https://plus.google.com/share?url={http%3A%2F%2Fwww.i-sai.net%2Fes%2Fproductos-y-soluciones%2Fcontrol-de-accesos%2Fcerraduras-electronicas-wireless-en-red%2Fcerradura-electronica-RFID}" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" title="Compartir en Google+"></a></li>
+                    <li class="email"><a href="#" title="Enviar por e-mail"></a></li>
+                    <li class="pdf"><a href="#" title="Descargar en PDF"></a></li>
+                </ul>
+            </nav>
+        </div>
+        
+        <a href="/es/productos-y-soluciones/control-de-accesos/#tab1" class="consulta-nuestros-productos"><span class="ico"></span>Control de Accesos</a>
+        
+        <div id="gallery">
+        	<div class="content">
+                <ul>
+                    <li><img src="/php/resize.php?tipo=productos-ficha&imagen=control-accesos-cerraduras-electronicas-red-rfid.jpg" width="490" height="400" alt="Cerradura Electrónica RFID" /><p>Cerradura Electrónica RFID</p></li>
+                    <li><img src="/php/resize.php?tipo=productos-ficha&imagen=control-accesos-cerraduras-electronicas-red-rfid-llave.jpg.jpg" width="490" height="400" alt="Cerradura Electrónica RFID Wireless" /><p>Cerradura Electrónica RFID Wireless</p></li>
+                    <li><img src="/php/resize.php?tipo=productos-ficha&imagen=control-accesos-cerraduras-electronicas-red-rfid-E9450_Cerradura_llave.jpg" width="490" height="400" alt="Cerradura Electrónica RFID Wireless + llave mecánica" /><p>Cerradura Electrónica RFID Wireless + llave mecánica</p></li>
+                    <li><img src="/php/resize.php?tipo=productos-ficha&imagen=control-accesos-cerraduras-electronicas-red-rfid-privavcidad-electronicajpg" width="490" height="400" alt="Cerradura Electrónica RFID con privacidad electrónica" /><p>Cerradura Electrónica RFID con privacidad electrónica</p></li>
+                    <li><img src="/php/resize.php?tipo=productos-ficha&imagen=control-accesos-cerraduras-electronicas-red-rfid-02.jpg" width="490" height="400" alt="Cerradura Electrónica RFID Wireless" /><p>Cerradura Electrónica RFID Wireless</p></li>
+                    <li><img src="/php/resize.php?tipo=productos-ficha&imagen=control-accesos-cerraduras-electronicas-red-rfid-E9450_interior.jpg" width="490" height="400" alt="Cerradura Electrónica RFID con privacidad mecanica" /><p>Cerradura Electrónica RFID con privacidad mecanica</p></li>
+                </ul>
+            </div>
+            <span class="btn_prev">Anterior</span>
+            <span class="btn_next">Siguiente</span>
+        </div>
+        
+        <div class="txt">
+        	<p><span style="font-family: Arial, sans-serif; font-size: 10pt; line-height: 115%; text-align: justify;">Dise&ntilde;adas para instalarse y adaptarse a cualquier tipo de puerta, incluidas las de perfil met&aacute;lico, son compatible con la mayor&iacute;a de las cerraduras de embutir y cilindros mec&aacute;nicos del mercado. Seguras, inteligentes, aut&oacute;nomas e innovadoras, las cerraduras electr&oacute;nicas de SALTO Systems incorporan la tecnolog&iacute;a data-on-card y Wireless de SALTO. A trav&eacute;s de las tarjetas inteligentes de identificaci&oacute;n RFID de proximidad de los usuarios de la instalaci&oacute;n crean una Red Virtual (SVN) entre ellas, aportando un sinf&iacute;n de prestaciones para la gesti&oacute;n de puertas, usuarios y de tu edificio. Todo ello sin necesidad de cables.</span></p>
+<p class="MsoListParagraph" style="margin-left:72.0pt;mso-add-space:auto;
+text-align:justify"><span style="font-size:10.0pt;line-height:115%;font-family:
+"><o:p></o:p></span></p>
+<p>&nbsp;</p>        </div>
+    </header>
+    
+   	<section id="features">
+    	<h2>Características<br />de Cerraduras Electrónicas Autónomas en Red</h2>
+
+        
+        <div class="col diseno">
+        	<span class="ico"></span>
+            <h3>Diseño</h3>
+			<ul>
+    <li>Dise&ntilde;o modular para instalarse en todo tipo de puertas. La variedad de modelos se ajustan a los diferentes sistemas de cierre.</li>
+    <li>La variedad de los acabados combinan perfectamente con el dise&ntilde;o de su edificio o acabado de la puerta.</li>
+    <li>Completa gama de manillas con atractivos dise&ntilde;os y acabados.</li>
+    <li>Compatible con los est&aacute;ndares EU, DIN, SiS y ANSI de cerradura de embutir del mercado y todo tipo de puertas.</li>
+    <li>Sin necesidad de cables, instalaci&oacute;n y mantenimiento sencillo.</li>
+</ul>
+<p>&nbsp;</p>		</div>
+        
+        <div class="col seguridad">
+        	<span class="ico"></span>
+            <h3>Seguridad</h3>
+			<ul>
+    <li>IP 55. Dise&ntilde;adas para evitar la corrosi&oacute;n de sus componentes internos y garantizar el correcto funcionamiento por m&aacute;s tiempo.</li>
+    <li>Entre 40.000 y 70.000 aperturas con &uacute;nico conjunto de pilas dependiendo la tecnolog&iacute;a.</li>
+    <li>Estructura de acero reforzado le brindar&aacute; una seguridad adicional.</li>
+    <li>Posibilidad de combinar apertura mediante llave mec&aacute;nica.</li>
+    <li>Disponible con funci&oacute;n de privacidad electr&oacute;nica a trav&eacute;s de un pulsador interior, mec&aacute;nica con palanca o AMOK a trav&eacute;s de las tarjetas inteligentes y la tecnolog&iacute;a SVN data-on-card de SALTO.</li>
+    <li>Memoria no vol&aacute;til (los registros no se eliminan incluso si fallan las pilas)</li>
+    <li>Todos los elementos de control (excepto el m&oacute;dulo lector) se encuentran alojados en el lado interior ofreciendo una mayor seguridad frente al vandalismo.</li>
+</ul>        </div>
+        <div class="col tecnologia">
+        	<span class="ico"></span>
+            <h3>Tecnología</h3>
+			<ul>
+    <li>Cerradura electr&oacute;nicas aut&oacute;nomas. Sin cables y bater&iacute;as est&aacute;ndar 3 AAA.</li>
+    <li>Registro en la llave del usuario de los eventos realizados a trav&eacute;s de la Red Virtual SALTO data-on-card (SVN)</li>
+    <li>Funciones online en tiempo real sin cables, a trav&eacute;s de la tecnolog&iacute;a Wireless.</li>
+    <li>RFID: Tecnolog&iacute;a Anti-Clonaci&oacute;n, las comunicaciones entre la llave electr&oacute;nica (tarjeta, brazalete, tel&eacute;fono NFC&hellip;) y la cerradura electr&oacute;nica est&aacute;n encriptados y 100% seguras.</li>
+    <li>Compatible con m&uacute;ltiples tecnolog&iacute;as de identificaci&oacute;n.</li>
+    <li>Memoria interna de la cerradura electr&oacute;nica no vol&aacute;til.</li>
+    <li>Aviso para el cambio de las bater&iacute;as. En caso de agotarse las pilas posibilidad de apertura de emergencia.</li>
+</ul>		</div>
+    </section>
+    
+    
+    
+    
+    <aside id="installations">
+    	<h2>Instalaciones que lo incorporan</h2>
+    	<div class="content">
+            <ul>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-centros-educativos/universidad-de-deusto">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=educacion-universidad-deusto-01.jpg" width="224" height="120" alt="Universidad de Deusto" />
+                    </a>
+                    <div>
+                    	<span class="city">Donostia - Bilbao</span>
+                    	<span class="work">Universidad de Deusto</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-centros-educativos/ikastola-santo-tomas-liceoa">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=educacion-ikastola-santo-tomas-01.jpg" width="224" height="120" alt="Ikastola Santo Tomas Lizeoa" />
+                    </a>
+                    <div>
+                    	<span class="city">Donosti</span>
+                    	<span class="work">Ikastola Santo Tomas Lizeoa</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-centros-educativos/basque-culinary-center-bcc">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=BCC_Basque_culinary.jpg" width="224" height="120" alt="Basque Culinary Center BCC" />
+                    </a>
+                    <div>
+                    	<span class="city">Donostia</span>
+                    	<span class="work">Basque Culinary Center BCC</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-centros-educativos/upv-ehu-biblioteca">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=UPV_Biblioteca.jpg" width="224" height="120" alt="UPV - EHU Biblioteca" />
+                    </a>
+                    <div>
+                    	<span class="city">Donostia</span>
+                    	<span class="work">UPV - EHU Biblioteca</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-centros-educativos/uribe-kosta-bhi">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=educacion-uribe-kosta-bhi-01.jpg" width="224" height="120" alt="Uribe Kosta BHI" />
+                    </a>
+                    <div>
+                    	<span class="city">Plentzia</span>
+                    	<span class="work">Uribe Kosta BHI</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-instalaciones-deportivas/centro-surf-de-somo">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=instalaciones-deportivas-centro-surf-somo-01.jpg" width="224" height="120" alt="Centro surf de Somo" />
+                    </a>
+                    <div>
+                    	<span class="city">Somo, Cantabria</span>
+                    	<span class="work">Centro surf de Somo</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-instalaciones-deportivas/cd-fortuna-ke">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=instalaciones-deportivas-cd-fortuna-pio-baroja-01.jpg" width="224" height="120" alt="CD Fortuna KE" />
+                    </a>
+                    <div>
+                    	<span class="city">Donostia</span>
+                    	<span class="work">CD Fortuna KE</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-instalaciones-deportivas/centro-deportivo-hegalak">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=hegalak_2.jpg" width="224" height="120" alt="Centro Deportivo Hegalak" />
+                    </a>
+                    <div>
+                    	<span class="city">Donostia</span>
+                    	<span class="work">Centro Deportivo Hegalak</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-organismos-publicos/ayuntamiento-de-egües">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=organismo-publicos-ayto-egues-01.jpg" width="224" height="120" alt="Ayuntamiento de Egües" />
+                    </a>
+                    <div>
+                    	<span class="city">Egües</span>
+                    	<span class="work">Ayuntamiento de Egües</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-organismos-publicos/hacienda-de-gipuzkoa">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=organismo-publicos-diputacion-hacienda-01.jpg" width="224" height="120" alt="Hacienda de Gipuzkoa" />
+                    </a>
+                    <div>
+                    	<span class="city">Donostia</span>
+                    	<span class="work">Hacienda de Gipuzkoa</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-empresas/findus">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=findus_1 (1).jpg" width="224" height="120" alt="Findus" />
+                    </a>
+                    <div>
+                    	<span class="city">Tajonar</span>
+                    	<span class="work">Findus</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-empresas/parque-tecnologico-de-zamudio">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=pymes-pct-zamudio-01.jpg" width="224" height="120" alt="Parque Tecnológico de Zamudio" />
+                    </a>
+                    <div>
+                    	<span class="city">Zamudio</span>
+                    	<span class="work">Parque Tecnológico de Zamudio</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-residencias-de-la-tercera-edad/clinica-bistaeder">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=dentista_57954643.jpg" width="224" height="120" alt="Clínica Bistaeder" />
+                    </a>
+                    <div>
+                    	<span class="city">Eibar</span>
+                    	<span class="work">Clínica Bistaeder</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-residencias-de-la-tercera-edad/real-casa-misericordia-tudela">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=residencias-tercera-edad-rc-misericordia-01.jpg" width="224" height="120" alt="Residencia Real Casa Misericordia de Tudela" />
+                    </a>
+                    <div>
+                    	<span class="city">Tudela</span>
+                    	<span class="work">Residencia Real Casa Misericordia de Tudela</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-sanidad/biodonostia-centro-de-investigacion">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=sanidad-biodonostia-01.jpg" width="224" height="120" alt="Biodonostia" />
+                    </a>
+                    <div>
+                    	<span class="city">Donostia</span>
+                    	<span class="work">Biodonostia</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-sanidad/hospital-san-juan-de-dios">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=shutterstock_84258409.jpg" width="224" height="120" alt="Hospital San Juan de Dios" />
+                    </a>
+                    <div>
+                    	<span class="city">Arrasate</span>
+                    	<span class="work">Hospital San Juan de Dios</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-hoteles/hotel-castillo-de-gorraiz">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=turismo-hotel-castillo-de-gorraiz-01.jpg" width="224" height="120" alt="Hotel Castillo de Gorraiz" />
+                    </a>
+                    <div>
+                    	<span class="city">Pamplona</span>
+                    	<span class="work">Hotel Castillo de Gorraiz</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-hoteles/hotel-maria-cristina">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=turismo-hotel-maria-cristina-01.jpg" width="224" height="120" alt="Hotel Maria Cristina" />
+                    </a>
+                    <div>
+                    	<span class="city">Donostia</span>
+                    	<span class="work">Hotel Maria Cristina</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-hoteles/hotel-de-londres">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=turismo-hotel-londres-01.jpg" width="224" height="120" alt="Hotel de Londres" />
+                    </a>
+                    <div>
+                    	<span class="city">Donostia</span>
+                    	<span class="work">Hotel de Londres</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-hoteles/villa-lorenea">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=villalorenea-2.jpg" width="224" height="120" alt="Villa Lorenea" />
+                    </a>
+                    <div>
+                    	<span class="city">Hondarribia</span>
+                    	<span class="work">Villa Lorenea</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-instalaciones-deportivas/osasuna-el-sadar-tajonar">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=osasuna_1.jpg" width="224" height="120" alt="Osasuna – El Sadar / Tajonar" />
+                    </a>
+                    <div>
+                    	<span class="city">Tajonar</span>
+                    	<span class="work">Osasuna – El Sadar / Tajonar</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-instalaciones-deportivas/athletic-club-san-mames-barria">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=san_mames_SALTO.jpg" width="224" height="120" alt="Athletic Club - San Mames Barria" />
+                    </a>
+                    <div>
+                    	<span class="city">Bilbao</span>
+                    	<span class="work">Athletic Club - San Mames Barria</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-organismos-publicos/ayuntamineto-irun">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=DSC07112.JPG" width="224" height="120" alt="Ayuntamiento Irún" />
+                    </a>
+                    <div>
+                    	<span class="city">Irún</span>
+                    	<span class="work">Ayuntamiento Irún</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-sanidad/imq">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=IMQ.jpg" width="224" height="120" alt="IMQ" />
+                    </a>
+                    <div>
+                    	<span class="city">Bilbao</span>
+                    	<span class="work">IMQ</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-empresas/tecnalia">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=tecnalia.jpg" width="224" height="120" alt="Tecnalia" />
+                    </a>
+                    <div>
+                    	<span class="city">Gipuzkoa - Bizkaia - Araba</span>
+                    	<span class="work">Tecnalia</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-residencias-de-la-tercera-edad/residencia-igurco-amorebieta">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=Residencia Amorebieta 1.JPG" width="224" height="120" alt="Residencia Igurco - Amorebieta" />
+                    </a>
+                    <div>
+                    	<span class="city">Amorebieta</span>
+                    	<span class="work">Residencia Igurco - Amorebieta</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-sociedades/sociedades-gastronomicas">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=sociedades_ gastronomicas-02.jpg" width="224" height="120" alt="Sociedades Gastronómicas" />
+                    </a>
+                    <div>
+                    	<span class="city">CAV</span>
+                    	<span class="work">Sociedades Gastronómicas</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/Irri Sarri Land">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=irrisarri_1.jpg" width="224" height="120" alt="Irri Sarri Land" />
+                    </a>
+                    <div>
+                    	<span class="city">Igantzi, Parque Natural de Bertiz y Bera - Navarra</span>
+                    	<span class="work">Irri Sarri Land</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-empresas/grupo-uvesco">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=UVESCO_5.jpg" width="224" height="120" alt="Plataforma Logística del Grupo UVESCO" />
+                    </a>
+                    <div>
+                    	<span class="city">Irún (Araso)</span>
+                    	<span class="work">Plataforma Logística del Grupo UVESCO</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-hoteles/hotel-astoria7">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=ASTORIA_1.jpg" width="224" height="120" alt="Hotel Astoria7 un alojamiento de vanguardia" />
+                    </a>
+                    <div>
+                    	<span class="city">Donostia</span>
+                    	<span class="work">Hotel Astoria7 un alojamiento de vanguardia</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-instalaciones-deportivas/athletic-club-lezama">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=lezama_salto.jpg" width="224" height="120" alt="Athletic Club de Bilbao – Lezama" />
+                    </a>
+                    <div>
+                    	<span class="city">Lezama - Athletic Club</span>
+                    	<span class="work">Athletic Club de Bilbao – Lezama</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-organismos-publicos/tabakalera">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=tabakalera-1.jpg" width="224" height="120" alt="Tabakalera" />
+                    </a>
+                    <div>
+                    	<span class="city">Donostia - San Sebastian</span>
+                    	<span class="work">Tabakalera</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="/es/proyectos/sistemas-de-seguridad-en-empresas/besa">
+                    	<img src="/php/resize.php?tipo=proyectos-mini&imagen=BESA.jpg" width="224" height="120" alt="BESA :: Bernardo Ecenarro " />
+                    </a>
+                    <div>
+                    	<span class="city">Azkoitia</span>
+                    	<span class="work">BESA :: Bernardo Ecenarro </span>
+                    </div>
+                </li>
+            </ul>
+		</div>
+        <span class="btn_prev">Anterior</span>
+        <span class="btn_next">Siguiente</span>
+    </aside>
+<aside id="marketing">
+	<div class="newsletter">
+        <div class="content">
+            <h3>Suscríbete a nuestra Newsletter</h3>
+            <p>Te mantendremos al día de nuestros proyectos y novedades en seguridad.</p>
+        </div>
+
+    	<!--<form id="newsletter_form">
+        	<ul>
+            	<li><input form="newsletter_form" name="email" type="email" placeholder="Introduce tu mail" /></li>
+            	<li><input type="submit" name="send" id="send" /></li>
+          	</ul>
+        </form>-->
+
+		<!-- Begin MailChimp Signup Form -->
+		<div id="mc_embed_signup">
+			<form action="http://i-sai.us7.list-manage.com/subscribe/post?u=c280c9df4ede3f2a2a357f9f6&amp;id=46126b03fa" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+				<div class="mc-field-group">
+					<!--<label for="mce-EMAIL">Email Address </label>-->
+					<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Introduce tu mail">
+	            	<label for="politica_datos" class="politica_datos"><input name="politica_datos" id="politica_datos" type="checkbox" value="">Acepto la <a href="[URL]/politica-de-privacidad/">politica de privacidad</a> de i -SAI</label>
+				</div>
+				<div id="mce-responses" class="clear">
+					<div class="response" id="mce-error-response" style="display:none"></div>
+					<div class="response" id="mce-success-response" style="display:none"></div>
+				</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+				<div style="position: absolute; left: -5000px;"><input type="text" name="b_c280c9df4ede3f2a2a357f9f6_46126b03fa" value=""></div>
+				<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+			</form>
+		</div>
+		<!--End mc_embed_signup-->
+   	</div>
+    
+	<ul id="social">
+    	<li class="txt">Conecta con nosotros:</li>
+        <li class="facebook"><a href="https://www.facebook.com/free2moveorg" title="Facebook" target="_blank"></a></li>
+        <li class="twitter"><a href="https://twitter.com/iSAInet" title="Twitter" target="_blank"></a></li>
+        <li class="flickr"><a href="http://www.flickr.com/i-sai/" title="Flickr" target="_blank"></a></li>
+        <li class="youtube"><a href="http://www.youtube.com/user/isaisalto" title="YouTube" target="_blank"></a></li>
+        <li class="linkedin"><a href="http://www.linkedin.com/company/salto-systems-s.l." title="LinkedIn" target="_blank"></a></li>
+    </ul>
+</aside>
+
+<footer id="footer">
+	<nav id="navigation">
+        <div class="section1">
+            <h2><a href="/es/i-sai/">Conoce i-SAI</a></h2>
+            <ul>
+                <li><a href="/es/i-sai/">Conoce i-SAI</a></li>
+                <li><a href="/es/trabaja-en-i-sai/">Trabaja en i-SAI</a></li>
+                <li><a href="/es/contacta-con-i-sai/">Contacto</a></li>
+            </ul>
+        </div>
+        
+        <div class="section2">
+            <h2><a href="/es/proyectos/">Proyectos</a></h2>
+        </div>
+        
+        <div class="section3">
+            <h2><a href="/es/productos-y-soluciones/control-de-accesos/">Productos y soluciones</a></h2>
+            <ul>
+                <li><a href="/es/productos-y-soluciones/control-de-accesos/">Control de  accesos</a></li>
+                <li><a href="/es/productos-y-soluciones/sistemas-de-seguridad/">Sistemas de Seguridad</a></li>
+                <li><a href="/es/productos-y-soluciones/plataforma-de-seguridad/">Plataforma de seguridad</a></li>
+                <li><a href="/es/productos-y-soluciones/mantenimiento/">Servicio S.A.T. y Mantenimiento de instalaciones de seguridad</a></li>
+            </ul>
+        </div>
+        
+        <div class="section4">
+            <h2><a href="/es/soporte-tecnico-sat/">Ayuda SAT</a></h2>
+            <ul>
+                <li><a href="/es/soporte-tecnico-sat/">FAQs</a></li>
+                <li><a href="/es/soporte-tecnico-sat/consultanos.php">Consultanos</a></li>
+            </ul>
+        </div>
+        
+        <div class="section5">
+        	<a href="/es/sat-online/">
+                <h2>i-SAI SAT online</h2>
+                <p>Una herramienta de gestión web para consultar y realizar todas las operaciones de mantenimiento y seguimiento de tu instalación 24h /365</p>
+            </a>
+        </div>
+	</nav>
+    
+    <div id="fineprint">
+    	<div class="content">
+            <div class="corporate">
+                <span class="logo"></span>
+                
+            </div>
+            
+            <div class="privacy-policy">
+                <p class="contact">Contacto: 902 727 727</p>
+            	<ul>
+                    <li><a href="/es/politica-de-privacidad/">Política de privacidad</a></li>
+                	<li><a href="/es/condiciones-de-uso/">Condiciones de uso</a></li>
+               	</ul>
+                <p class="copyright">© i-SAI. Todos los derechos reservados.</p>
+            </div>
+            
+            <div class="certificates">
+				<p>Empresa autorizada:<br />D.G.S.E. nº 3828<br /><br />Empresa Homologada:<br />Fuego / Extincion de Incendios<br />20 / EMI - 111<br />20 / EPI - 130</p>
+                <span class="ico-aenor"></span>
+                <span class="ico-iqnet"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="badge"><a href="/es/sat-online/"><img src="/img/badge_isai.png" width="171" height="171" alt="i-SAI SAT online" /></a></div</body>
+</html>
